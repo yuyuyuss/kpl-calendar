@@ -171,48 +171,65 @@ def main():
             continue
         start_time = datetime.fromtimestamp(start_ts, tz=CHINA_TZ)
         
+        # 获取比分原始值
         score_a_raw = match.get('team_a_score')
         score_b_raw = match.get('team_b_score')
         bo_total = match.get('bo_total', 5)  # 默认 BO5
         
-        # 判断是否有比分数据
+        # 判断是否有比分数据（不为 None 且不为空字符串）
         has_score = (
             score_a_raw is not None and score_a_raw != '' and
             score_b_raw is not None and score_b_raw != ''
         )
         
-        # ✅ 新的状态判断逻辑
+        # --- 核心状态判断 ---
         is_finished = False
         is_live = False
+        score_a_display = None
+        score_b_display = None
         
         if has_score:
-            score_a = int(score_a_raw)
-            score_b = int(score_b_raw)
+            # 尝试将比分转为整数
+            try:
+                score_a = int(score_a_raw)
+                score_b = int(score_b_raw)
+            except ValueError:
+                # 如果转换失败，视为无效比分
+                score_a = -1
+                score_b = -1
             
-            # 判断是否已结束：一边达到胜利分数
-            # BO5: 一方达到3分；BO7: 一方达到4分；BO9: 一方达到5分
-            win_score = (bo_total // 2) + 1  # BO5->3, BO7->4, BO9->5
-            if score_a >= win_score or score_b >= win_score:
-                is_finished = True
-            # 判断是否正在进行：有比分但未结束，且比赛开始时间已过
-            elif current_ts > start_ts:
-                is_live = True
-            # 两边都是0，且比赛还没开始
-            elif score_a == 0 and score_b == 0 and current_ts < start_ts:
+            # 如果比分有效（非负数）
+            if score_a >= 0 and score_b >= 0:
+                # 1. 判断是否已结束：一方达到胜利分数
+                win_score = (bo_total // 2) + 1  # BO5->3, BO7->4, BO9->5
+                if score_a >= win_score or score_b >= win_score:
+                    is_finished = True
+                    score_a_display = str(score_a)
+                    score_b_display = str(score_b)
+                # 2. 判断是否正在进行：有比分但未结束，且比赛开始时间已过
+                elif current_ts > start_ts:
+                    is_live = True
+                    score_a_display = str(score_a)
+                    score_b_display = str(score_b)
+                # 3. 两边都是0，且比赛还没开始 → 未开始
+                elif score_a == 0 and score_b == 0 and current_ts < start_ts:
+                    is_finished = False
+                    is_live = False
+                    score_a_display = None
+                    score_b_display = None
+                # 4. 其他情况（比如比分 0:0 但比赛已开始，但未结束）→ 视为进行中
+                else:
+                    is_live = True
+                    score_a_display = str(score_a)
+                    score_b_display = str(score_b)
+            else:
+                # 比分无效，视为未开始
                 is_finished = False
                 is_live = False
         else:
             # 没有比分数据，视为未开始
             is_finished = False
             is_live = False
-        
-        # 比分值
-        if is_finished:
-            score_a_display = str(score_a_raw)
-            score_b_display = str(score_b_raw)
-        else:
-            score_a_display = None
-            score_b_display = None
         
         # 状态文本
         if is_finished:

@@ -436,12 +436,13 @@
             const container = document.getElementById('scheduleContainer');
 
             try {
-                const url = `./schedule.json?t=${Date.now()}`; 
+                const url = `./schedule.json?t=${Date.now()}`;
                 const response = await fetch(url, { cache: 'no-store' });
                 if (!response.ok) throw new Error('数据不存在');
 
                 const data = await response.json();
 
+                // 更新页面标题
                 if (data.title) {
                     document.querySelector('h1').textContent = `📅 ${data.title}`;
                 }
@@ -452,22 +453,20 @@
                     return;
                 }
 
+                // 按时间排序
                 matches.sort((a, b) => a.time.localeCompare(b.time));
 
                 let html = '<div class="schedule-list">';
                 matches.forEach(item => {
-                    // ✅ 修复：判断状态，增加调试日志
+                    // 状态判断
                     let statusHtml = '';
-                    let statusText = '';
-
                     if (item.is_finished === true) {
-                        statusText = '已结束';
-                        statusHtml = `<span class="match-status status-finished">✓ ${statusText}</span>`;
+                        statusHtml = `<span class="match-status status-finished">✓ 已结束</span>`;
                     } else {
-                        statusText = '未开始';
-                        statusHtml = `<span class="match-status status-upcoming">● ${statusText}</span>`;
+                        statusHtml = `<span class="match-status status-upcoming">● 未开始</span>`;
                     }
 
+                    // 比分显示
                     let scoreHtml = '';
                     if (item.is_finished && item.score_a !== null && item.score_b !== null) {
                         scoreHtml = `<span class="score finished">${item.score_a} : ${item.score_b}</span>`;
@@ -475,39 +474,42 @@
                         scoreHtml = `<span class="score" style="color:#b2bec3;">vs</span>`;
                     }
 
-                    // ✅ 修复：队标图片，添加错误处理和默认占位
+                    // 队标图片
                     const logoA = item.team_a_logo || '';
                     const logoB = item.team_b_logo || '';
 
                     html += `
-        <div class="schedule-item">
-            <div class="match-info">
-                <div class="match-teams">
-                    <span class="schedule-time">${item.time}</span>
-                    <img src="${logoA}" 
-                         class="team-logo" 
-                         onerror="this.style.display='none'; this.title='队标加载失败'"
-                         alt="${item.team_a}"
-                         loading="lazy">
-                    <span>${item.team_a}</span>
-                    ${scoreHtml}
-                    <img src="${logoB}" 
-                         class="team-logo" 
-                         onerror="this.style.display='none'; this.title='队标加载失败'"
-                         alt="${item.team_b}"
-                         loading="lazy">
-                    <span>${item.team_b}</span>
-                    ${statusHtml}
+                <div class="schedule-item">
+                    <div class="match-info">
+                        <div class="match-teams">
+                            <span class="schedule-time">${item.time}</span>
+                            <img src="${logoA}" 
+                                 class="team-logo" 
+                                 onerror="this.style.display='none'"
+                                 alt="${item.team_a}"
+                                 loading="lazy">
+                            <span>${item.team_a}</span>
+                            ${scoreHtml}
+                            <img src="${logoB}" 
+                                 class="team-logo" 
+                                 onerror="this.style.display='none'"
+                                 alt="${item.team_b}"
+                                 loading="lazy">
+                            <span>${item.team_b}</span>
+                            ${statusHtml}
+                        </div>
+                        <div class="match-meta">
+                            <span>${item.stage || ''}</span>
+                            <span>${item.location ? '📍 ' + item.location : ''}</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="match-meta">
-                    <span>${item.stage || ''}</span>
-                    <span>${item.location ? '📍 ' + item.location : ''}</span>
-                </div>
-            </div>
-        </div>
-    `;
+            `;
                 });
+                html += '</div>';
+                container.innerHTML = html;
 
+                // 更新最后更新时间
                 const lastModified = response.headers.get('last-modified');
                 if (lastModified) {
                     const date = new Date(lastModified);

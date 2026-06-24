@@ -1,4 +1,3 @@
-```markdown
 # 📅 KPL 赛程日历订阅
 
 > 自动抓取 KPL（王者荣耀职业联赛）赛程数据，生成可订阅的日历链接，支持一键更新。
@@ -84,6 +83,8 @@ kpl-calendar/
 │       └── update-calendar.yml   # GitHub Actions 自动化配置
 ├── generate_calendar.py          # 核心脚本：抓取数据 + 生成日历
 ├── index.html                    # 前端展示页面
+├── kpl.ics                       # 生成的日历文件
+├── schedule.json                 # 生成的赛程数据
 ├── requirements.txt              # Python 依赖列表
 └── README.md                     # 项目说明
 ```
@@ -168,33 +169,3 @@ MIT License © 2026 yuyuyuss
 ---
 
 **🎮 祝你观赛愉快！KPL 赛场见！** 🏆
-```
-
----
-
-## 📝 如何使用
-
-1. 在项目根目录创建 `README.md` 文件
-2. 复制上面全部内容粘贴进去
-3. 保存并提交：
-
-```bash
-git add README.md
-git commit -m "添加 README 项目说明"
-git pull origin main --rebase
-git push origin main
-```
-
----
-
-## 💡 自定义修改
-
-如果你要个性化，可以替换以下内容：
-
-| 内容 | 位置 | 说明 |
-|------|------|------|
-| `yuyuyuss` | 订阅链接、项目链接 | 替换成你的 GitHub 用户名 |
-| `kpl-calendar` | 订阅链接、项目链接 | 替换成你的仓库名 |
-| 邮箱 | LICENSE 部分 | 替换成你的邮箱 |
-
----

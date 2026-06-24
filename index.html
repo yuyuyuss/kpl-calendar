@@ -173,6 +173,15 @@
             padding: 40px 0;
         }
 
+        .update-hint {
+            background: #e8f4fd;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #0056b3;
+        }
+
         @media (max-width: 600px) {
             .schedule-item {
                 flex-direction: column;
@@ -190,12 +199,17 @@
     <!-- 控制区 -->
     <div class="card">
         <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-            <button class="btn btn-success" id="updateBtn" onclick="triggerUpdate()">
-                🔄 更新赛程
-            </button>
+            <a href="https://github.com/yuyuyuss/kpl-calendar/actions/workflows/update-calendar.yml" 
+               target="_blank" 
+               class="btn btn-success" 
+               style="display:inline-block; text-decoration:none; text-align:center;">
+               ⚡ 前往 GitHub 更新赛程
+            </a>
             <span style="color: #888; font-size: 14px;" id="lastUpdateText">上次更新：加载中...</span>
         </div>
-        <div id="status"></div>
+        <div class="update-hint">
+            💡 点击按钮后，在新页面中点击绿色的 <strong>"Run workflow"</strong> 按钮即可更新赛程。
+        </div>
     </div>
 
     <!-- 赛程列表 -->
@@ -218,92 +232,17 @@
         // ===== 配置区 =====
         const GITHUB_USERNAME = 'yuyuyuss';
         const GITHUB_REPO = 'kpl-calendar';
-        const WORKFLOW_FILE = 'update-calendar.yml';
-        const API_URL = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILE}/dispatches`;
 
         // ===== 核心逻辑 =====
 
-        // 触发 Actions 运行
-        async function triggerUpdate() {
-            const btn = document.getElementById('updateBtn');
-            const status = document.getElementById('status');
-
-            btn.disabled = true;
-            btn.textContent = '⏳ 更新中...';
-            status.className = 'loading';
-            status.textContent = '⏳ 正在触发更新，请稍候...';
-            status.style.display = 'block';
-
-            try {
-                // 注意：这里不需要 Token！因为公开仓库的 workflow_dispatch 可以通过 API 触发
-                // 但 GitHub 要求必须带 Accept 头
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/vnd.github.v3+json'
-                    },
-                    body: JSON.stringify({ ref: 'main' })
-                });
-
-                if (response.ok) {
-                    status.className = 'success';
-                    status.textContent = '✅ 更新已触发！等待约30秒后，点击"刷新赛程"查看最新数据。';
-
-                    // 自动轮询检测更新
-                    await waitForUpdate();
-                } else {
-                    const errorData = await response.json();
-                    status.className = 'error';
-                    status.textContent = `❌ 触发失败 (${response.status}): ${errorData.message || '未知错误'}`;
-                }
-            } catch (error) {
-                status.className = 'error';
-                status.textContent = `❌ 网络错误: ${error.message}`;
-            } finally {
-                btn.disabled = false;
-                btn.textContent = '🔄 更新赛程';
-            }
-        }
-
-        // 等待更新完成（轮询检测 schedule.json 的更新时间）
-        async function waitForUpdate() {
-            const status = document.getElementById('status');
-            let attempts = 0;
-            const maxAttempts = 30; // 最多等 30 秒
-
-            while (attempts < maxAttempts) {
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                attempts++;
-
-                // 检测 schedule.json 是否有更新
-                try {
-                    const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/main/schedule.json?t=${Date.now()}`;
-                    const response = await fetch(url, { cache: 'no-store' });
-                    if (response.ok) {
-                        // 如果能获取到数据，说明文件已更新
-                        status.textContent = '✅ 赛程已更新！正在加载...';
-                        await loadSchedule();
-                        status.className = 'success';
-                        status.textContent = '✅ 赛程更新完成！';
-                        return;
-                    }
-                } catch (e) {
-                    // 继续等待
-                }
-            }
-            status.className = 'success';
-            status.textContent = '✅ 更新已触发，请稍后手动刷新页面查看。';
-        }
-
         // 加载并显示赛程
-        async function loadSchedule(force = false) {
+        async function loadSchedule() {
             const container = document.getElementById('scheduleContainer');
-            const status = document.getElementById('status');
 
             try {
                 const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/main/schedule.json?t=${Date.now()}`;
                 const response = await fetch(url, { cache: 'no-store' });
-                if (!response.ok) throw new Error('数据不存在');
+                if (!response.ok) throw new Error('数据不存在，请先运行脚本生成赛程');
 
                 const data = await response.json();
 
@@ -312,26 +251,26 @@
                     document.querySelector('h1').textContent = `📅 ${data.title}`;
                 }
 
-                const matches = data.matches || data; // 兼容旧格式
+                const matches = data.matches || data;
                 if (!matches || matches.length === 0) {
                     container.innerHTML = '<div class="empty-state">📭 暂无赛程数据</div>';
                     return;
                 }
 
-                // 按时间排序（最新的在前）
+                // 按时间排序
                 matches.sort((a, b) => a.time.localeCompare(b.time));
 
                 let html = '<div class="schedule-list">';
                 matches.forEach(item => {
                     html += `
-                <div class="schedule-item">
-                    <span class="schedule-time">${item.time} ${item.weekday || ''}</span>
-                    <span class="schedule-teams">
-                        ${item.team_a} <span class="vs">vs</span> ${item.team_b}
-                    </span>
-                    <span class="schedule-meta">${item.stage || ''} ${item.location ? '· ' + item.location : ''}</span>
-                </div>
-            `;
+                        <div class="schedule-item">
+                            <span class="schedule-time">${item.time} ${item.weekday || ''}</span>
+                            <span class="schedule-teams">
+                                ${item.team_a} <span class="vs">vs</span> ${item.team_b}
+                            </span>
+                            <span class="schedule-meta">${item.stage || ''} ${item.location ? '· ' + item.location : ''}</span>
+                        </div>
+                    `;
                 });
                 html += '</div>';
                 container.innerHTML = html;
@@ -344,7 +283,7 @@
                 }
 
             } catch (error) {
-                container.innerHTML = `<div class="empty-state">⚠️ 加载失败：${error.message}。请点击"更新赛程"按钮获取数据。</div>`;
+                container.innerHTML = `<div class="empty-state">⚠️ 加载失败：${error.message}</div>`;
             }
         }
 
@@ -354,7 +293,6 @@
             navigator.clipboard.writeText(url).then(() => {
                 alert('✅ 订阅链接已复制！');
             }).catch(() => {
-                // 降级方案
                 const range = document.createRange();
                 range.selectNode(document.getElementById('subscribeUrl'));
                 window.getSelection().removeAllRanges();
@@ -365,12 +303,9 @@
         }
 
         // ===== 页面初始化 =====
-        document.addEventListener('DOMContentLoaded', function () {
-            // 设置订阅链接
+        document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('subscribeUrl').textContent =
                 `webcal://${GITHUB_USERNAME}.github.io/${GITHUB_REPO}/kpl.ics`;
-
-            // 加载赛程
             loadSchedule();
         });
     </script>

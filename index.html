@@ -456,12 +456,16 @@
 
                 let html = '<div class="schedule-list">';
                 matches.forEach(item => {
-                    // 判断状态（这里简化处理，实际可根据时间+比分判断）
+                    // ✅ 修复：判断状态，增加调试日志
                     let statusHtml = '';
-                    if (item.is_finished) {
-                        statusHtml = `<span class="match-status status-finished">✓ 已结束</span>`;
+                    let statusText = '';
+
+                    if (item.is_finished === true) {
+                        statusText = '已结束';
+                        statusHtml = `<span class="match-status status-finished">✓ ${statusText}</span>`;
                     } else {
-                        statusHtml = `<span class="match-status status-upcoming">● 未开始</span>`;
+                        statusText = '未开始';
+                        statusHtml = `<span class="match-status status-upcoming">● ${statusText}</span>`;
                     }
 
                     let scoreHtml = '';
@@ -471,34 +475,38 @@
                         scoreHtml = `<span class="score" style="color:#b2bec3;">vs</span>`;
                     }
 
+                    // ✅ 修复：队标图片，添加错误处理和默认占位
+                    const logoA = item.team_a_logo || '';
+                    const logoB = item.team_b_logo || '';
+
                     html += `
-                <div class="schedule-item">
-                    <div class="match-info">
-                        <div class="match-teams">
-                            <span class="schedule-time">${item.time}</span>
-                            <img src="${item.team_a_logo || ''}" 
-                                 class="team-logo" 
-                                 onerror="this.style.display='none'"
-                                 alt="${item.team_a}">
-                            <span>${item.team_a}</span>
-                            ${scoreHtml}
-                            <img src="${item.team_b_logo || ''}" 
-                                 class="team-logo" 
-                                 onerror="this.style.display='none'"
-                                 alt="${item.team_b}">
-                            <span>${item.team_b}</span>
-                            ${statusHtml}
-                        </div>
-                        <div class="match-meta">
-                            <span>${item.stage || ''}</span>
-                            <span>${item.location ? '📍 ' + item.location : ''}</span>
-                        </div>
-                    </div>
+        <div class="schedule-item">
+            <div class="match-info">
+                <div class="match-teams">
+                    <span class="schedule-time">${item.time}</span>
+                    <img src="${logoA}" 
+                         class="team-logo" 
+                         onerror="this.style.display='none'; this.title='队标加载失败'"
+                         alt="${item.team_a}"
+                         loading="lazy">
+                    <span>${item.team_a}</span>
+                    ${scoreHtml}
+                    <img src="${logoB}" 
+                         class="team-logo" 
+                         onerror="this.style.display='none'; this.title='队标加载失败'"
+                         alt="${item.team_b}"
+                         loading="lazy">
+                    <span>${item.team_b}</span>
+                    ${statusHtml}
                 </div>
-            `;
+                <div class="match-meta">
+                    <span>${item.stage || ''}</span>
+                    <span>${item.location ? '📍 ' + item.location : ''}</span>
+                </div>
+            </div>
+        </div>
+    `;
                 });
-                html += '</div>';
-                container.innerHTML = html;
 
                 const lastModified = response.headers.get('last-modified');
                 if (lastModified) {

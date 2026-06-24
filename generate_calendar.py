@@ -106,9 +106,33 @@ def main():
         return
 
     print(f"✅ 成功获取 {len(matches)} 场比赛。")
+    
+    # 生成 ics 日历
     print("📅 正在生成日历文件...")
     cal = create_calendar(matches)
     save_calendar(cal)
+    
+    # 🆕 生成 JSON 数据供前端展示
+    print("📊 正在生成赛程数据...")
+    matches_data = []
+    for match in matches:
+        start_ts = int(match.get('start_timestamp', 0))
+        if start_ts == 0:
+            continue
+        start_time = datetime.fromtimestamp(start_ts, tz=CHINA_TZ)
+        matches_data.append({
+            'time': start_time.strftime('%m-%d %H:%M'),
+            'weekday': ['周一','周二','周三','周四','周五','周六','周日'][start_time.weekday()],
+            'team_a': match.get('team_a_name', ''),
+            'team_b': match.get('team_b_name', ''),
+            'stage': match.get('stage_name', ''),
+            'location': match.get('location_name', '')
+        })
+    
+    with open('schedule.json', 'w', encoding='utf-8') as f:
+        json.dump(matches_data, f, ensure_ascii=False, indent=2)
+    print("✅ 赛程数据已保存: schedule.json")
+    
     print("🎉 任务完成！")
 
 if __name__ == "__main__":

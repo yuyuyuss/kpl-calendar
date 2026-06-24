@@ -94,7 +94,7 @@ def create_calendar(matches, calendar_title=None):
         team_b = match.get('team_b_name', '队伍B')
         stage = match.get('stage_name', 'KPL')
         # 构建事件标题，例如: "KPL 常规赛第一轮: 佛山DRG vs 广州TTG"
-        summary = f"{stage}: {team_a} vs {team_b}"
+        summary = f"{team_a} vs {team_b}"
         location = match.get('location_name', '')
         # 比分信息可以作为描述添加
         score_a = match.get('team_a_score', '')

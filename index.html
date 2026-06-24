@@ -460,16 +460,25 @@
                 matches.forEach(item => {
                     // 状态判断
                     let statusHtml = '';
-                    if (item.is_finished === true) {
-                        statusHtml = `<span class="match-status status-finished">✓ 已结束</span>`;
+                    let statusText = '';
+
+                    if (item.status === 'finished') {
+                        statusText = '已结束';
+                        statusHtml = `<span class="match-status status-finished">✓ ${statusText}</span>`;
+                    } else if (item.status === 'live') {
+                        statusText = '进行中';
+                        statusHtml = `<span class="match-status status-live">● ${statusText}</span>`;
                     } else {
-                        statusHtml = `<span class="match-status status-upcoming">● 未开始</span>`;
+                        statusText = '未开始';
+                        statusHtml = `<span class="match-status status-upcoming">● ${statusText}</span>`;
                     }
 
                     // 比分显示
                     let scoreHtml = '';
-                    if (item.is_finished && item.score_a !== null && item.score_b !== null) {
+                    if (item.status === 'finished') {
                         scoreHtml = `<span class="score finished">${item.score_a} : ${item.score_b}</span>`;
+                    } else if (item.status === 'live') {
+                        scoreHtml = `<span class="score live">${item.score_a} : ${item.score_b}</span>`;
                     } else {
                         scoreHtml = `<span class="score" style="color:#b2bec3;">vs</span>`;
                     }

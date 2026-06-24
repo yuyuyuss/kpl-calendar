@@ -162,7 +162,7 @@ def main():
     # 生成 JSON 数据供前端展示
     print("📊 正在生成赛程数据...")
     matches_data = []
-    current_ts = int(time.time())  # 当前时间戳
+    current_ts = int(time.time())
     
     for match in matches:
         start_ts = int(match.get('start_timestamp', 0))
@@ -172,6 +172,7 @@ def main():
         
         score_a_raw = match.get('team_a_score')
         score_b_raw = match.get('team_b_score')
+        bo_total = match.get('bo_total', 5)  # 默认 BO5
         
         # 判断是否有比分数据
         has_score = (
@@ -179,21 +180,46 @@ def main():
             score_b_raw is not None and score_b_raw != ''
         )
         
-        # ✅ 核心判断逻辑：比赛已结束 = 有比分 + 比赛开始超过4小时 + 当前时间已过比赛开始时间
-        match_end_ts = start_ts + 4 * 3600  # 4小时后
-        is_finished = has_score and current_ts > match_end_ts
+        # ✅ 新的状态判断逻辑
+        is_finished = False
+        is_live = False
         
-        # 如果比赛时间还没到，强制标记为未开始
-        if current_ts < start_ts:
+        if has_score:
+            score_a = int(score_a_raw)
+            score_b = int(score_b_raw)
+            
+            # 判断是否已结束：一边达到胜利分数
+            # BO5: 一方达到3分；BO7: 一方达到4分；BO9: 一方达到5分
+            win_score = (bo_total // 2) + 1  # BO5->3, BO7->4, BO9->5
+            if score_a >= win_score or score_b >= win_score:
+                is_finished = True
+            # 判断是否正在进行：有比分但未结束，且比赛开始时间已过
+            elif current_ts > start_ts:
+                is_live = True
+            # 两边都是0，且比赛还没开始
+            elif score_a == 0 and score_b == 0 and current_ts < start_ts:
+                is_finished = False
+                is_live = False
+        else:
+            # 没有比分数据，视为未开始
             is_finished = False
+            is_live = False
         
         # 比分值
         if is_finished:
-            score_a = str(score_a_raw)
-            score_b = str(score_b_raw)
+            score_a_display = str(score_a_raw)
+            score_b_display = str(score_b_raw)
         else:
-            score_a = None
-            score_b = None
+            score_a_display = None
+            score_b_display = None
+        
+        # 状态文本
+        if is_finished:
+            status = 'finished'
+        elif is_live:
+            status = 'live'
+        else:
+            status = 'upcoming'
         
         matches_data.append({
             'time': start_time.strftime('%m-%d %H:%M'),
@@ -204,9 +230,12 @@ def main():
             'team_b_logo': match.get('team_b_logo', ''),
             'stage': match.get('stage_name', ''),
             'location': match.get('location_name', ''),
-            'score_a': score_a,
-            'score_b': score_b,
-            'is_finished': is_finished
+            'score_a': score_a_display,
+            'score_b': score_b_display,
+            'is_finished': is_finished,
+            'is_live': is_live,
+            'status': status,
+            'bo_total': bo_total
         })
     
     output_data = {

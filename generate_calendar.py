@@ -149,42 +149,43 @@ def main():
 
     print(f"✅ 成功获取 {len(matches)} 场比赛。")
     
-    # 获取阶段名称（从第一场比赛里取）
+    # 获取阶段名称
     stage_name = matches[0].get('stage_name', 'KPL') if matches else 'KPL'
-    
-    # 生成动态标题
     full_title = f"{season_name} {stage_name}"
     print(f"📅 日历标题: {full_title}")
     
-    # 生成 ics 日历（传入标题）
+    # 生成 ics 日历
     print("📅 正在生成日历文件...")
     cal = create_calendar(matches, full_title)
     save_calendar(cal)
     
-    # 生成 JSON 数据供前端展示（也包含标题信息）
+    # 生成 JSON 数据供前端展示
     print("📊 正在生成赛程数据...")
-    # 在 main() 函数中，修改 matches_data 的生成逻辑
     matches_data = []
+    current_ts = int(time.time())  # 当前时间戳
+    
     for match in matches:
         start_ts = int(match.get('start_timestamp', 0))
         if start_ts == 0:
             continue
         start_time = datetime.fromtimestamp(start_ts, tz=CHINA_TZ)
         
-        # ✅ 修复：正确判断比赛是否已结束
-        # 从接口获取的比分，如果比赛未开始，可能不存在、为 None 或为空字符串
         score_a_raw = match.get('team_a_score')
         score_b_raw = match.get('team_b_score')
         
-        # 判断是否已结束：比分必须存在且不为空字符串，且不能是 None
-        # 注意：比分 "0" 是有效值，表示 0 分，所以不能把它当作"没有比分"
+        # 判断是否有比分数据
         has_score = (
             score_a_raw is not None and score_a_raw != '' and
             score_b_raw is not None and score_b_raw != ''
         )
         
-        # 只有当比分存在时，才认为比赛已结束
-        is_finished = has_score
+        # ✅ 核心判断逻辑：比赛已结束 = 有比分 + 比赛开始超过4小时 + 当前时间已过比赛开始时间
+        match_end_ts = start_ts + 4 * 3600  # 4小时后
+        is_finished = has_score and current_ts > match_end_ts
+        
+        # 如果比赛时间还没到，强制标记为未开始
+        if current_ts < start_ts:
+            is_finished = False
         
         # 比分值
         if is_finished:
@@ -208,7 +209,6 @@ def main():
             'is_finished': is_finished
         })
     
-    # 在JSON中也保存标题信息，供前端使用
     output_data = {
         'title': full_title,
         'season': season_name,

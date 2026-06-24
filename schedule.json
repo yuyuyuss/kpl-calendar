@@ -12,8 +12,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/0a05fdfba20fa3823db5c8c44fae6abe.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 1,
-      "score_b": 3,
+      "score_a": "1",
+      "score_b": "3",
       "is_finished": true
     },
     {
@@ -25,8 +25,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/1ea7f04720f50cfb03f861b25c7c95e5.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": 3,
-      "score_b": 0,
+      "score_a": "3",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -38,8 +38,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/e7f3ca48aa29a89c5cf7e04d7f83534f.png",
       "stage": "常规赛第一轮",
       "location": "重庆",
-      "score_a": 0,
-      "score_b": 3,
+      "score_a": "0",
+      "score_b": "3",
       "is_finished": true
     },
     {
@@ -51,8 +51,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/11ba263f0d5d6fd422c4efb14df3ad62.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 3,
-      "score_b": 2,
+      "score_a": "3",
+      "score_b": "2",
       "is_finished": true
     },
     {
@@ -64,8 +64,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/48f18204fa257197ec49bb6345d14a33.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 1,
-      "score_b": 3,
+      "score_a": "1",
+      "score_b": "3",
       "is_finished": true
     },
     {
@@ -77,8 +77,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/c2dfe93f6e1cabb13512d3fb42d94051.png",
       "stage": "常规赛第一轮",
       "location": "杭州",
-      "score_a": 3,
-      "score_b": 2,
+      "score_a": "3",
+      "score_b": "2",
       "is_finished": true
     },
     {
@@ -90,8 +90,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/7209fb2509e991052852dd872981c8f3.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": 3,
-      "score_b": 0,
+      "score_a": "3",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -103,8 +103,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/6fa47281113d4959a555cb9d168bcd54.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": 3,
-      "score_b": 1,
+      "score_a": "3",
+      "score_b": "1",
       "is_finished": true
     },
     {
@@ -116,8 +116,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/e7f3ca48aa29a89c5cf7e04d7f83534f.png",
       "stage": "常规赛第一轮",
       "location": "成都",
-      "score_a": 3,
-      "score_b": 1,
+      "score_a": "3",
+      "score_b": "1",
       "is_finished": true
     },
     {
@@ -129,8 +129,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/85b4fe06e4a722bd5435676bd9ff1384.png",
       "stage": "常规赛第一轮",
       "location": "杭州",
-      "score_a": 3,
-      "score_b": 2,
+      "score_a": "3",
+      "score_b": "2",
       "is_finished": true
     },
     {
@@ -142,8 +142,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/0a05fdfba20fa3823db5c8c44fae6abe.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 3,
+      "score_a": "0",
+      "score_b": "3",
       "is_finished": true
     },
     {
@@ -155,8 +155,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/221a9ffe2de016e02e146465ed57ce73.png",
       "stage": "常规赛第一轮",
       "location": "重庆",
-      "score_a": 3,
-      "score_b": 1,
+      "score_a": "3",
+      "score_b": "1",
       "is_finished": true
     },
     {
@@ -168,8 +168,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/1ea7f04720f50cfb03f861b25c7c95e5.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 1,
-      "score_b": 3,
+      "score_a": "1",
+      "score_b": "3",
       "is_finished": true
     },
     {
@@ -181,8 +181,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/48f18204fa257197ec49bb6345d14a33.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": 3,
-      "score_b": 2,
+      "score_a": "3",
+      "score_b": "2",
       "is_finished": true
     },
     {
@@ -194,8 +194,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/1a5ca3cfd4c76aeb5db18a29f7be450f.png",
       "stage": "常规赛第一轮",
       "location": "成都",
-      "score_a": 3,
-      "score_b": 1,
+      "score_a": "3",
+      "score_b": "1",
       "is_finished": true
     },
     {
@@ -207,8 +207,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/6fa47281113d4959a555cb9d168bcd54.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 2,
-      "score_b": 3,
+      "score_a": "2",
+      "score_b": "3",
       "is_finished": true
     },
     {
@@ -220,8 +220,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/ce1bd06e864b727f98676ef12a956e9f.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 3,
-      "score_b": 1,
+      "score_a": "3",
+      "score_b": "1",
       "is_finished": true
     },
     {
@@ -233,8 +233,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/e7f3ca48aa29a89c5cf7e04d7f83534f.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -246,8 +246,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/c2dfe93f6e1cabb13512d3fb42d94051.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -259,8 +259,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/221a9ffe2de016e02e146465ed57ce73.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -272,8 +272,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/1ea7f04720f50cfb03f861b25c7c95e5.png",
       "stage": "常规赛第一轮",
       "location": "杭州",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -285,8 +285,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/48f18204fa257197ec49bb6345d14a33.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -298,8 +298,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/7209fb2509e991052852dd872981c8f3.png",
       "stage": "常规赛第一轮",
       "location": "南通",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -311,8 +311,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/0a05fdfba20fa3823db5c8c44fae6abe.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -324,8 +324,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/6fa47281113d4959a555cb9d168bcd54.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -337,8 +337,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/221a9ffe2de016e02e146465ed57ce73.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -350,8 +350,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/11ba263f0d5d6fd422c4efb14df3ad62.png",
       "stage": "常规赛第一轮",
       "location": "成都",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -363,8 +363,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/7209fb2509e991052852dd872981c8f3.png",
       "stage": "常规赛第一轮",
       "location": "杭州",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -376,8 +376,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/75b41b2357febfa17764f8bc1f423d2c.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -389,8 +389,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/1a5ca3cfd4c76aeb5db18a29f7be450f.png",
       "stage": "常规赛第一轮",
       "location": "重庆",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -402,8 +402,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/7209fb2509e991052852dd872981c8f3.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -415,8 +415,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/6fa47281113d4959a555cb9d168bcd54.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -428,8 +428,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/a29bcb1a579369888cc9a87637274822.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -441,8 +441,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/48f18204fa257197ec49bb6345d14a33.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -454,8 +454,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/11ba263f0d5d6fd422c4efb14df3ad62.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -467,8 +467,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/e4fa78585a052b912d092287814c779b.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -480,8 +480,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/c2dfe93f6e1cabb13512d3fb42d94051.png",
       "stage": "常规赛第一轮",
       "location": "南通",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -493,8 +493,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/1ea7f04720f50cfb03f861b25c7c95e5.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -506,8 +506,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/0366eefd9c4da7b127e1f1b4e9d497a5.png",
       "stage": "常规赛第一轮",
       "location": "成都",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -519,8 +519,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/6fa47281113d4959a555cb9d168bcd54.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -532,8 +532,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/1a5ca3cfd4c76aeb5db18a29f7be450f.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -545,8 +545,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/ce1bd06e864b727f98676ef12a956e9f.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -558,8 +558,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/1ea7f04720f50cfb03f861b25c7c95e5.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -571,8 +571,8 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/11ba263f0d5d6fd422c4efb14df3ad62.png",
       "stage": "常规赛第一轮",
       "location": "重庆",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     },
     {
@@ -584,8 +584,8 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/221a9ffe2de016e02e146465ed57ce73.png",
       "stage": "常规赛第一轮",
       "location": "成都",
-      "score_a": 0,
-      "score_b": 0,
+      "score_a": "0",
+      "score_b": "0",
       "is_finished": true
     }
   ]

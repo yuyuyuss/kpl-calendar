@@ -14,7 +14,10 @@
       "location": "上海",
       "score_a": "1",
       "score_b": "3",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-17 17:00",
@@ -27,7 +30,10 @@
       "location": "北京",
       "score_a": "3",
       "score_b": "0",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-17 20:00",
@@ -40,7 +46,10 @@
       "location": "重庆",
       "score_a": "0",
       "score_b": "3",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-18 14:00",
@@ -53,7 +62,10 @@
       "location": "上海",
       "score_a": "3",
       "score_b": "2",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-18 17:00",
@@ -66,7 +78,10 @@
       "location": "上海",
       "score_a": "1",
       "score_b": "3",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-18 20:00",
@@ -79,7 +94,10 @@
       "location": "杭州",
       "score_a": "3",
       "score_b": "2",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-19 14:00",
@@ -92,7 +110,10 @@
       "location": "北京",
       "score_a": "3",
       "score_b": "0",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-19 17:00",
@@ -105,7 +126,10 @@
       "location": "北京",
       "score_a": "3",
       "score_b": "1",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-19 20:00",
@@ -118,7 +142,10 @@
       "location": "成都",
       "score_a": "3",
       "score_b": "1",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-20 14:00",
@@ -131,7 +158,10 @@
       "location": "杭州",
       "score_a": "3",
       "score_b": "2",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-20 17:00",
@@ -144,7 +174,10 @@
       "location": "上海",
       "score_a": "0",
       "score_b": "3",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-20 20:00",
@@ -157,7 +190,10 @@
       "location": "重庆",
       "score_a": "3",
       "score_b": "1",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-21 14:00",
@@ -170,7 +206,10 @@
       "location": "上海",
       "score_a": "1",
       "score_b": "3",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-21 17:00",
@@ -183,7 +222,10 @@
       "location": "北京",
       "score_a": "3",
       "score_b": "2",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-21 20:00",
@@ -196,7 +238,10 @@
       "location": "成都",
       "score_a": "3",
       "score_b": "1",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-24 14:00",
@@ -209,7 +254,10 @@
       "location": "上海",
       "score_a": "2",
       "score_b": "3",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-24 17:00",
@@ -222,7 +270,10 @@
       "location": "上海",
       "score_a": "3",
       "score_b": "1",
-      "is_finished": true
+      "is_finished": true,
+      "is_live": false,
+      "status": "finished",
+      "bo_total": 5
     },
     {
       "time": "06-24 20:00",
@@ -233,9 +284,12 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/e7f3ca48aa29a89c5cf7e04d7f83534f.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": true,
+      "status": "live",
+      "bo_total": 5
     },
     {
       "time": "06-25 14:00",
@@ -246,9 +300,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/c2dfe93f6e1cabb13512d3fb42d94051.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "06-25 17:00",
@@ -259,9 +316,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/221a9ffe2de016e02e146465ed57ce73.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "06-25 20:00",
@@ -272,9 +332,12 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/1ea7f04720f50cfb03f861b25c7c95e5.png",
       "stage": "常规赛第一轮",
       "location": "杭州",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "06-26 14:00",
@@ -285,9 +348,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/48f18204fa257197ec49bb6345d14a33.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "06-26 17:00",
@@ -298,9 +364,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/7209fb2509e991052852dd872981c8f3.png",
       "stage": "常规赛第一轮",
       "location": "南通",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "06-26 20:00",
@@ -311,9 +380,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/0a05fdfba20fa3823db5c8c44fae6abe.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "06-27 14:00",
@@ -324,9 +396,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/6fa47281113d4959a555cb9d168bcd54.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "06-27 17:00",
@@ -337,9 +412,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/221a9ffe2de016e02e146465ed57ce73.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "06-27 20:00",
@@ -350,9 +428,12 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/11ba263f0d5d6fd422c4efb14df3ad62.png",
       "stage": "常规赛第一轮",
       "location": "成都",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "06-28 14:00",
@@ -363,9 +444,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/7209fb2509e991052852dd872981c8f3.png",
       "stage": "常规赛第一轮",
       "location": "杭州",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "06-28 17:00",
@@ -376,9 +460,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/75b41b2357febfa17764f8bc1f423d2c.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "06-28 20:00",
@@ -389,9 +476,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/1a5ca3cfd4c76aeb5db18a29f7be450f.png",
       "stage": "常规赛第一轮",
       "location": "重庆",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-01 14:00",
@@ -402,9 +492,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/7209fb2509e991052852dd872981c8f3.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-01 17:00",
@@ -415,9 +508,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/6fa47281113d4959a555cb9d168bcd54.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-01 20:00",
@@ -428,9 +524,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/a29bcb1a579369888cc9a87637274822.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-02 14:00",
@@ -441,9 +540,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/48f18204fa257197ec49bb6345d14a33.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-02 17:00",
@@ -454,9 +556,12 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/11ba263f0d5d6fd422c4efb14df3ad62.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-02 20:00",
@@ -467,9 +572,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/e4fa78585a052b912d092287814c779b.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-03 14:00",
@@ -480,9 +588,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/c2dfe93f6e1cabb13512d3fb42d94051.png",
       "stage": "常规赛第一轮",
       "location": "南通",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-03 17:00",
@@ -493,9 +604,12 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/1ea7f04720f50cfb03f861b25c7c95e5.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-03 20:00",
@@ -506,9 +620,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/0366eefd9c4da7b127e1f1b4e9d497a5.png",
       "stage": "常规赛第一轮",
       "location": "成都",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-04 14:00",
@@ -519,9 +636,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/6fa47281113d4959a555cb9d168bcd54.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-04 17:00",
@@ -532,9 +652,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/1a5ca3cfd4c76aeb5db18a29f7be450f.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-04 20:00",
@@ -545,9 +668,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/ce1bd06e864b727f98676ef12a956e9f.png",
       "stage": "常规赛第一轮",
       "location": "北京",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-05 14:00",
@@ -558,9 +684,12 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/1ea7f04720f50cfb03f861b25c7c95e5.png",
       "stage": "常规赛第一轮",
       "location": "上海",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-05 17:00",
@@ -571,9 +700,12 @@
       "team_b_logo": "https://smobatv-pic.tga.qq.com/11ba263f0d5d6fd422c4efb14df3ad62.png",
       "stage": "常规赛第一轮",
       "location": "重庆",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     },
     {
       "time": "07-05 20:00",
@@ -584,9 +716,12 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/221a9ffe2de016e02e146465ed57ce73.png",
       "stage": "常规赛第一轮",
       "location": "成都",
-      "score_a": "0",
-      "score_b": "0",
-      "is_finished": true
+      "score_a": null,
+      "score_b": null,
+      "is_finished": false,
+      "is_live": false,
+      "status": "upcoming",
+      "bo_total": 5
     }
   ]
 }

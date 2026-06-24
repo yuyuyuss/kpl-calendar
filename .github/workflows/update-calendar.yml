@@ -1,0 +1,34 @@
+name: 更新KPL赛程日历
+
+on:
+  # 删除 schedule 部分，只保留手动触发
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-calendar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 设置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 运行脚本生成日历
+        run: python generate_calendar.py
+
+      - name: 提交并推送更改
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add kpl.ics
+          git diff --staged --quiet || git commit -m "手动更新赛程日历 $(date +'%Y-%m-%d %H:%M')"
+          git push

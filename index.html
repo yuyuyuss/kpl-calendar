@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPL赛程日历订阅</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #333; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #e74c3c; padding-bottom: 10px; }
+        .card { background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .code { background: #e9ecef; padding: 15px; border-radius: 5px; word-break: break-all; font-family: monospace; font-size: 1.1em; }
+        .btn { display: inline-block; background: #007bff; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; font-size: 16px; }
+        .btn:hover { background: #0056b3; }
+        .btn-success { background: #28a745; }
+        .btn-success:hover { background: #1e7e34; }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .step { margin: 15px 0; }
+        #status { margin-top: 15px; padding: 10px; border-radius: 5px; display: none; }
+        #status.loading { display: block; background: #fff3cd; color: #856404; }
+        #status.success { display: block; background: #d4edda; color: #155724; }
+        #status.error { display: block; background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>📅 KPL 2026年夏季赛 赛程日历</h1>
+    
+    <div class="card">
+        <h2>🔄 手动更新赛程</h2>
+        <p>点击下方按钮，立即从KPL官网抓取最新赛程并更新日历文件（约需30秒）。</p>
+        <button class="btn btn-success" id="updateBtn" onclick="triggerUpdate()">
+            ⚡ 立即更新赛程
+        </button>
+        <div id="status"></div>
+    </div>
+
+    <div class="card">
+        <h2>📌 订阅地址</h2>
+        <p>复制下方链接，在你的日历App中添加订阅日历：</p>
+        <div class="code" id="subscribeUrl">webcal://你的用户名.github.io/仓库名/kpl.ics</div>
+        <p style="margin-top: 10px;">
+            <button class="btn" onclick="copyUrl()">📋 复制链接</button>
+        </p>
+        <p style="color: #777; font-size: 14px; margin-top: 10px;">
+            ⏱️ 上次更新：<span id="lastUpdateTime">加载中...</span>
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>📱 如何订阅？</h2>
+        <div class="step">
+            <strong>🍎 iPhone / iPad (Apple日历):</strong>
+            <ol>
+                <li>打开“设置” → “日历” → “账户” → “添加账户” → “其他”</li>
+                <li>选择“添加已订阅的日历”，粘贴上面的链接</li>
+                <li>点击“存储”即可</li>
+            </ol>
+        </div>
+        <div class="step">
+            <strong>📧 Google日历:</strong>
+            <ol>
+                <li>在电脑上打开Google日历，点击左侧“其他日历”旁的“+”</li>
+                <li>选择“通过网址添加”，粘贴链接（将 <code>webcal://</code> 改为 <code>https://</code>）</li>
+                <li>点击“添加日历”</li>
+            </ol>
+        </div>
+    </div>
+    <p style="text-align: center; color: #777; margin-top: 30px;">
+        数据来源：KPL官网 | <span id="updateInfo">点击上方按钮手动更新</span>
+    </p>
+
+    <script>
+        // ===== 配置区：请替换成你的GitHub信息 =====
+        const GITHUB_USERNAME = 'yuyuyuss';
+        const GITHUB_REPO = 'kpl-calendar';
+        const WORKFLOW_FILE = 'update-calendar.yml';  // 你的workflow文件名
+        
+        // 构建API URL
+        const API_URL = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILE}/dispatches`;
+        
+        // ===== 功能函数 =====
+        function getSubscribeUrl() {
+            return `webcal://${GITHUB_USERNAME}.github.io/${GITHUB_REPO}/kpl.ics`;
+        }
+
+        async function triggerUpdate() {
+            const btn = document.getElementById('updateBtn');
+            const status = document.getElementById('status');
+            
+            // 禁用按钮，防止重复点击
+            btn.disabled = true;
+            btn.textContent = '⏳ 更新中...';
+            status.className = 'loading';
+            status.textContent = '⏳ 正在触发更新，请稍候...';
+            status.style.display = 'block';
+
+            try {
+                // 调用GitHub API触发workflow
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json',
+                        // 注意：如果是公开仓库，不需要token也可以触发；如果是私有仓库需要加token
+                        // 'Authorization': 'token YOUR_GITHUB_TOKEN'
+                    },
+                    body: JSON.stringify({ ref: 'main' })
+                });
+
+                if (response.ok) {
+                    status.className = 'success';
+                    status.textContent = '✅ 更新已触发！请等待约30秒后刷新页面，日历文件将自动更新。';
+                    
+                    // 启动轮询，检查是否有新的commit
+                    await waitForUpdate();
+                } else {
+                    const errorData = await response.json();
+                    status.className = 'error';
+                    status.textContent = `❌ 触发失败 (${response.status}): ${errorData.message || '未知错误'}`;
+                }
+            } catch (error) {
+                status.className = 'error';
+                status.textContent = `❌ 网络错误: ${error.message}`;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '⚡ 立即更新赛程';
+            }
+        }
+
+        async function waitForUpdate() {
+            // 等待30秒后检查文件更新时间
+            const status = document.getElementById('status');
+            status.textContent = '⏳ 更新已触发，正在生成日历文件...';
+            
+            // 简单等待30秒
+            await new Promise(resolve => setTimeout(resolve, 30000));
+            
+            // 刷新页面上的更新时间
+            fetchLastUpdateTime();
+            status.textContent = '✅ 日历文件已更新！你可以刷新页面查看最新赛程。';
+        }
+
+        async function fetchLastUpdateTime() {
+            try {
+                const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/main/kpl.ics`;
+                const response = await fetch(url);
+                if (response.ok) {
+                    // 从响应头获取文件最后修改时间
+                    const lastModified = response.headers.get('last-modified');
+                    if (lastModified) {
+                        const date = new Date(lastModified);
+                        document.getElementById('lastUpdateTime').textContent = date.toLocaleString('zh-CN');
+                    }
+                }
+            } catch (e) {
+                document.getElementById('lastUpdateTime').textContent = '未知';
+            }
+        }
+
+        function copyUrl() {
+            const url = document.getElementById('subscribeUrl').innerText;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('✅ 订阅链接已复制！');
+            }, () => {
+                // 降级方案
+                const range = document.createRange();
+                range.selectNode(document.getElementById('subscribeUrl'));
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                alert('✅ 订阅链接已复制！');
+            });
+        }
+
+        // ===== 页面加载时初始化 =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置订阅链接
+            document.getElementById('subscribeUrl').textContent = getSubscribeUrl();
+            // 获取最后更新时间
+            fetchLastUpdateTime();
+        });
+    </script>
+</body>
+</html>

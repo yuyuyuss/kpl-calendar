@@ -319,19 +319,19 @@
                 }
 
                 // 按时间排序（最新的在前）
-                data.sort((a, b) => a.time.localeCompare(b.time));
+                matches.sort((a, b) => a.time.localeCompare(b.time));
 
                 let html = '<div class="schedule-list">';
-                data.forEach(item => {
+                matches.forEach(item => {
                     html += `
-                        <div class="schedule-item">
-                            <span class="schedule-time">${item.time} ${item.weekday || ''}</span>
-                            <span class="schedule-teams">
-                                ${item.team_a} <span class="vs">vs</span> ${item.team_b}
-                            </span>
-                            <span class="schedule-meta">${item.stage || ''} ${item.location ? '· ' + item.location : ''}</span>
-                        </div>
-                    `;
+                <div class="schedule-item">
+                    <span class="schedule-time">${item.time} ${item.weekday || ''}</span>
+                    <span class="schedule-teams">
+                        ${item.team_a} <span class="vs">vs</span> ${item.team_b}
+                    </span>
+                    <span class="schedule-meta">${item.stage || ''} ${item.location ? '· ' + item.location : ''}</span>
+                </div>
+            `;
                 });
                 html += '</div>';
                 container.innerHTML = html;

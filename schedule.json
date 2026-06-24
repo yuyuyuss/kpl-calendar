@@ -1,362 +1,367 @@
-[
-  {
-    "time": "06-17 14:00",
-    "weekday": "周三",
-    "team_a": "佛山DRG",
-    "team_b": "广州TTG",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-17 17:00",
-    "weekday": "周三",
-    "team_a": "北京WB",
-    "team_b": "武汉eStarPro",
-    "stage": "常规赛第一轮",
-    "location": "北京"
-  },
-  {
-    "time": "06-17 20:00",
-    "weekday": "周三",
-    "team_a": "重庆狼队",
-    "team_b": "KSG",
-    "stage": "常规赛第一轮",
-    "location": "重庆"
-  },
-  {
-    "time": "06-18 14:00",
-    "weekday": "周四",
-    "team_a": "WST",
-    "team_b": "济南RW侠",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-18 17:00",
-    "weekday": "周四",
-    "team_a": "西安WE",
-    "team_b": "长沙TES.A",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-18 20:00",
-    "weekday": "周四",
-    "team_a": "杭州LGD.NBW",
-    "team_b": "上海RNG.M",
-    "stage": "常规赛第一轮",
-    "location": "杭州"
-  },
-  {
-    "time": "06-19 14:00",
-    "weekday": "周五",
-    "team_a": "北京WB",
-    "team_b": "上海EDG.M",
-    "stage": "常规赛第一轮",
-    "location": "北京"
-  },
-  {
-    "time": "06-19 17:00",
-    "weekday": "周五",
-    "team_a": "北京JDG",
-    "team_b": "SYG",
-    "stage": "常规赛第一轮",
-    "location": "北京"
-  },
-  {
-    "time": "06-19 20:00",
-    "weekday": "周五",
-    "team_a": "成都AG超玩会",
-    "team_b": "KSG",
-    "stage": "常规赛第一轮",
-    "location": "成都"
-  },
-  {
-    "time": "06-20 14:00",
-    "weekday": "周六",
-    "team_a": "杭州LGD.NBW",
-    "team_b": "南通Hero久竞",
-    "stage": "常规赛第一轮",
-    "location": "杭州"
-  },
-  {
-    "time": "06-20 17:00",
-    "weekday": "周六",
-    "team_a": "西安WE",
-    "team_b": "广州TTG",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-20 20:00",
-    "weekday": "周六",
-    "team_a": "重庆狼队",
-    "team_b": "深圳DYG",
-    "stage": "常规赛第一轮",
-    "location": "重庆"
-  },
-  {
-    "time": "06-21 14:00",
-    "weekday": "周日",
-    "team_a": "上海RNG.M",
-    "team_b": "武汉eStarPro",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-21 17:00",
-    "weekday": "周日",
-    "team_a": "北京JDG",
-    "team_b": "长沙TES.A",
-    "stage": "常规赛第一轮",
-    "location": "北京"
-  },
-  {
-    "time": "06-21 20:00",
-    "weekday": "周日",
-    "team_a": "成都AG超玩会",
-    "team_b": "WST",
-    "stage": "常规赛第一轮",
-    "location": "成都"
-  },
-  {
-    "time": "06-24 14:00",
-    "weekday": "周三",
-    "team_a": "长沙TES.A",
-    "team_b": "SYG",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-24 17:00",
-    "weekday": "周三",
-    "team_a": "西安WE",
-    "team_b": "佛山DRG",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-24 20:00",
-    "weekday": "周三",
-    "team_a": "济南RW侠",
-    "team_b": "KSG",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-25 14:00",
-    "weekday": "周四",
-    "team_a": "北京WB",
-    "team_b": "上海RNG.M",
-    "stage": "常规赛第一轮",
-    "location": "北京"
-  },
-  {
-    "time": "06-25 17:00",
-    "weekday": "周四",
-    "team_a": "WST",
-    "team_b": "深圳DYG",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-25 20:00",
-    "weekday": "周四",
-    "team_a": "杭州LGD.NBW",
-    "team_b": "武汉eStarPro",
-    "stage": "常规赛第一轮",
-    "location": "杭州"
-  },
-  {
-    "time": "06-26 14:00",
-    "weekday": "周五",
-    "team_a": "佛山DRG",
-    "team_b": "长沙TES.A",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-26 17:00",
-    "weekday": "周五",
-    "team_a": "南通Hero久竞",
-    "team_b": "上海EDG.M",
-    "stage": "常规赛第一轮",
-    "location": "南通"
-  },
-  {
-    "time": "06-26 20:00",
-    "weekday": "周五",
-    "team_a": "北京JDG",
-    "team_b": "广州TTG",
-    "stage": "常规赛第一轮",
-    "location": "北京"
-  },
-  {
-    "time": "06-27 14:00",
-    "weekday": "周六",
-    "team_a": "西安WE",
-    "team_b": "SYG",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-27 17:00",
-    "weekday": "周六",
-    "team_a": "KSG",
-    "team_b": "深圳DYG",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-27 20:00",
-    "weekday": "周六",
-    "team_a": "成都AG超玩会",
-    "team_b": "济南RW侠",
-    "stage": "常规赛第一轮",
-    "location": "成都"
-  },
-  {
-    "time": "06-28 14:00",
-    "weekday": "周日",
-    "team_a": "杭州LGD.NBW",
-    "team_b": "上海EDG.M",
-    "stage": "常规赛第一轮",
-    "location": "杭州"
-  },
-  {
-    "time": "06-28 17:00",
-    "weekday": "周日",
-    "team_a": "南通Hero久竞",
-    "team_b": "北京WB",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "06-28 20:00",
-    "weekday": "周日",
-    "team_a": "重庆狼队",
-    "team_b": "WST",
-    "stage": "常规赛第一轮",
-    "location": "重庆"
-  },
-  {
-    "time": "07-01 14:00",
-    "weekday": "周三",
-    "team_a": "上海RNG.M",
-    "team_b": "上海EDG.M",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "07-01 17:00",
-    "weekday": "周三",
-    "team_a": "佛山DRG",
-    "team_b": "SYG",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "07-01 20:00",
-    "weekday": "周三",
-    "team_a": "北京WB",
-    "team_b": "杭州LGD.NBW",
-    "stage": "常规赛第一轮",
-    "location": "北京"
-  },
-  {
-    "time": "07-02 14:00",
-    "weekday": "周四",
-    "team_a": "广州TTG",
-    "team_b": "长沙TES.A",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "07-02 17:00",
-    "weekday": "周四",
-    "team_a": "深圳DYG",
-    "team_b": "济南RW侠",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "07-02 20:00",
-    "weekday": "周四",
-    "team_a": "北京JDG",
-    "team_b": "西安WE",
-    "stage": "常规赛第一轮",
-    "location": "北京"
-  },
-  {
-    "time": "07-03 14:00",
-    "weekday": "周五",
-    "team_a": "南通Hero久竞",
-    "team_b": "上海RNG.M",
-    "stage": "常规赛第一轮",
-    "location": "南通"
-  },
-  {
-    "time": "07-03 17:00",
-    "weekday": "周五",
-    "team_a": "上海EDG.M",
-    "team_b": "武汉eStarPro",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "07-03 20:00",
-    "weekday": "周五",
-    "team_a": "成都AG超玩会",
-    "team_b": "重庆狼队",
-    "stage": "常规赛第一轮",
-    "location": "成都"
-  },
-  {
-    "time": "07-04 14:00",
-    "weekday": "周六",
-    "team_a": "广州TTG",
-    "team_b": "SYG",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "07-04 17:00",
-    "weekday": "周六",
-    "team_a": "KSG",
-    "team_b": "WST",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "07-04 20:00",
-    "weekday": "周六",
-    "team_a": "北京JDG",
-    "team_b": "佛山DRG",
-    "stage": "常规赛第一轮",
-    "location": "北京"
-  },
-  {
-    "time": "07-05 14:00",
-    "weekday": "周日",
-    "team_a": "南通Hero久竞",
-    "team_b": "武汉eStarPro",
-    "stage": "常规赛第一轮",
-    "location": "上海"
-  },
-  {
-    "time": "07-05 17:00",
-    "weekday": "周日",
-    "team_a": "重庆狼队",
-    "team_b": "济南RW侠",
-    "stage": "常规赛第一轮",
-    "location": "重庆"
-  },
-  {
-    "time": "07-05 20:00",
-    "weekday": "周日",
-    "team_a": "成都AG超玩会",
-    "team_b": "深圳DYG",
-    "stage": "常规赛第一轮",
-    "location": "成都"
-  }
-]
+{
+  "title": "2026年KPL夏季赛 常规赛第一轮",
+  "season": "2026年KPL夏季赛",
+  "stage": "常规赛第一轮",
+  "matches": [
+    {
+      "time": "06-17 14:00",
+      "weekday": "周三",
+      "team_a": "佛山DRG",
+      "team_b": "广州TTG",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-17 17:00",
+      "weekday": "周三",
+      "team_a": "北京WB",
+      "team_b": "武汉eStarPro",
+      "stage": "常规赛第一轮",
+      "location": "北京"
+    },
+    {
+      "time": "06-17 20:00",
+      "weekday": "周三",
+      "team_a": "重庆狼队",
+      "team_b": "KSG",
+      "stage": "常规赛第一轮",
+      "location": "重庆"
+    },
+    {
+      "time": "06-18 14:00",
+      "weekday": "周四",
+      "team_a": "WST",
+      "team_b": "济南RW侠",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-18 17:00",
+      "weekday": "周四",
+      "team_a": "西安WE",
+      "team_b": "长沙TES.A",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-18 20:00",
+      "weekday": "周四",
+      "team_a": "杭州LGD.NBW",
+      "team_b": "上海RNG.M",
+      "stage": "常规赛第一轮",
+      "location": "杭州"
+    },
+    {
+      "time": "06-19 14:00",
+      "weekday": "周五",
+      "team_a": "北京WB",
+      "team_b": "上海EDG.M",
+      "stage": "常规赛第一轮",
+      "location": "北京"
+    },
+    {
+      "time": "06-19 17:00",
+      "weekday": "周五",
+      "team_a": "北京JDG",
+      "team_b": "SYG",
+      "stage": "常规赛第一轮",
+      "location": "北京"
+    },
+    {
+      "time": "06-19 20:00",
+      "weekday": "周五",
+      "team_a": "成都AG超玩会",
+      "team_b": "KSG",
+      "stage": "常规赛第一轮",
+      "location": "成都"
+    },
+    {
+      "time": "06-20 14:00",
+      "weekday": "周六",
+      "team_a": "杭州LGD.NBW",
+      "team_b": "南通Hero久竞",
+      "stage": "常规赛第一轮",
+      "location": "杭州"
+    },
+    {
+      "time": "06-20 17:00",
+      "weekday": "周六",
+      "team_a": "西安WE",
+      "team_b": "广州TTG",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-20 20:00",
+      "weekday": "周六",
+      "team_a": "重庆狼队",
+      "team_b": "深圳DYG",
+      "stage": "常规赛第一轮",
+      "location": "重庆"
+    },
+    {
+      "time": "06-21 14:00",
+      "weekday": "周日",
+      "team_a": "上海RNG.M",
+      "team_b": "武汉eStarPro",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-21 17:00",
+      "weekday": "周日",
+      "team_a": "北京JDG",
+      "team_b": "长沙TES.A",
+      "stage": "常规赛第一轮",
+      "location": "北京"
+    },
+    {
+      "time": "06-21 20:00",
+      "weekday": "周日",
+      "team_a": "成都AG超玩会",
+      "team_b": "WST",
+      "stage": "常规赛第一轮",
+      "location": "成都"
+    },
+    {
+      "time": "06-24 14:00",
+      "weekday": "周三",
+      "team_a": "长沙TES.A",
+      "team_b": "SYG",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-24 17:00",
+      "weekday": "周三",
+      "team_a": "西安WE",
+      "team_b": "佛山DRG",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-24 20:00",
+      "weekday": "周三",
+      "team_a": "济南RW侠",
+      "team_b": "KSG",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-25 14:00",
+      "weekday": "周四",
+      "team_a": "北京WB",
+      "team_b": "上海RNG.M",
+      "stage": "常规赛第一轮",
+      "location": "北京"
+    },
+    {
+      "time": "06-25 17:00",
+      "weekday": "周四",
+      "team_a": "WST",
+      "team_b": "深圳DYG",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-25 20:00",
+      "weekday": "周四",
+      "team_a": "杭州LGD.NBW",
+      "team_b": "武汉eStarPro",
+      "stage": "常规赛第一轮",
+      "location": "杭州"
+    },
+    {
+      "time": "06-26 14:00",
+      "weekday": "周五",
+      "team_a": "佛山DRG",
+      "team_b": "长沙TES.A",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-26 17:00",
+      "weekday": "周五",
+      "team_a": "南通Hero久竞",
+      "team_b": "上海EDG.M",
+      "stage": "常规赛第一轮",
+      "location": "南通"
+    },
+    {
+      "time": "06-26 20:00",
+      "weekday": "周五",
+      "team_a": "北京JDG",
+      "team_b": "广州TTG",
+      "stage": "常规赛第一轮",
+      "location": "北京"
+    },
+    {
+      "time": "06-27 14:00",
+      "weekday": "周六",
+      "team_a": "西安WE",
+      "team_b": "SYG",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-27 17:00",
+      "weekday": "周六",
+      "team_a": "KSG",
+      "team_b": "深圳DYG",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-27 20:00",
+      "weekday": "周六",
+      "team_a": "成都AG超玩会",
+      "team_b": "济南RW侠",
+      "stage": "常规赛第一轮",
+      "location": "成都"
+    },
+    {
+      "time": "06-28 14:00",
+      "weekday": "周日",
+      "team_a": "杭州LGD.NBW",
+      "team_b": "上海EDG.M",
+      "stage": "常规赛第一轮",
+      "location": "杭州"
+    },
+    {
+      "time": "06-28 17:00",
+      "weekday": "周日",
+      "team_a": "南通Hero久竞",
+      "team_b": "北京WB",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "06-28 20:00",
+      "weekday": "周日",
+      "team_a": "重庆狼队",
+      "team_b": "WST",
+      "stage": "常规赛第一轮",
+      "location": "重庆"
+    },
+    {
+      "time": "07-01 14:00",
+      "weekday": "周三",
+      "team_a": "上海RNG.M",
+      "team_b": "上海EDG.M",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "07-01 17:00",
+      "weekday": "周三",
+      "team_a": "佛山DRG",
+      "team_b": "SYG",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "07-01 20:00",
+      "weekday": "周三",
+      "team_a": "北京WB",
+      "team_b": "杭州LGD.NBW",
+      "stage": "常规赛第一轮",
+      "location": "北京"
+    },
+    {
+      "time": "07-02 14:00",
+      "weekday": "周四",
+      "team_a": "广州TTG",
+      "team_b": "长沙TES.A",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "07-02 17:00",
+      "weekday": "周四",
+      "team_a": "深圳DYG",
+      "team_b": "济南RW侠",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "07-02 20:00",
+      "weekday": "周四",
+      "team_a": "北京JDG",
+      "team_b": "西安WE",
+      "stage": "常规赛第一轮",
+      "location": "北京"
+    },
+    {
+      "time": "07-03 14:00",
+      "weekday": "周五",
+      "team_a": "南通Hero久竞",
+      "team_b": "上海RNG.M",
+      "stage": "常规赛第一轮",
+      "location": "南通"
+    },
+    {
+      "time": "07-03 17:00",
+      "weekday": "周五",
+      "team_a": "上海EDG.M",
+      "team_b": "武汉eStarPro",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "07-03 20:00",
+      "weekday": "周五",
+      "team_a": "成都AG超玩会",
+      "team_b": "重庆狼队",
+      "stage": "常规赛第一轮",
+      "location": "成都"
+    },
+    {
+      "time": "07-04 14:00",
+      "weekday": "周六",
+      "team_a": "广州TTG",
+      "team_b": "SYG",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "07-04 17:00",
+      "weekday": "周六",
+      "team_a": "KSG",
+      "team_b": "WST",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "07-04 20:00",
+      "weekday": "周六",
+      "team_a": "北京JDG",
+      "team_b": "佛山DRG",
+      "stage": "常规赛第一轮",
+      "location": "北京"
+    },
+    {
+      "time": "07-05 14:00",
+      "weekday": "周日",
+      "team_a": "南通Hero久竞",
+      "team_b": "武汉eStarPro",
+      "stage": "常规赛第一轮",
+      "location": "上海"
+    },
+    {
+      "time": "07-05 17:00",
+      "weekday": "周日",
+      "team_a": "重庆狼队",
+      "team_b": "济南RW侠",
+      "stage": "常规赛第一轮",
+      "location": "重庆"
+    },
+    {
+      "time": "07-05 20:00",
+      "weekday": "周日",
+      "team_a": "成都AG超玩会",
+      "team_b": "深圳DYG",
+      "stage": "常规赛第一轮",
+      "location": "成都"
+    }
+  ]
+}

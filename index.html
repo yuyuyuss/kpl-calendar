@@ -214,7 +214,7 @@
         <button class="btn btn-primary" onclick="copyUrl()">📋 复制订阅链接</button>
     </div>
 
-    <script src="config.js">
+    <script>
         // ===== 配置区 =====
         const GITHUB_USERNAME = 'yuyuyuss';
         const GITHUB_REPO = 'kpl-calendar';
@@ -240,8 +240,7 @@
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: {
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Authorization': `token ${GITHUB_TOKEN}`  // 使用 config.js 中的变量
+                        'Accept': 'application/vnd.github.v3+json'
                     },
                     body: JSON.stringify({ ref: 'main' })
                 });

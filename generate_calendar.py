@@ -169,13 +169,25 @@ def main():
         if start_ts == 0:
             continue
         start_time = datetime.fromtimestamp(start_ts, tz=CHINA_TZ)
+        
+        # 获取比分，如果没有则为 None
+        score_a = match.get('team_a_score')
+        score_b = match.get('team_b_score')
+        # 判断比赛是否已结束（比分存在且不为空字符串）
+        is_finished = score_a is not None and score_a != '' and score_b is not None and score_b != ''
+        
         matches_data.append({
             'time': start_time.strftime('%m-%d %H:%M'),
             'weekday': ['周一','周二','周三','周四','周五','周六','周日'][start_time.weekday()],
             'team_a': match.get('team_a_name', ''),
+            'team_a_logo': match.get('team_a_logo', ''),  # 新增
             'team_b': match.get('team_b_name', ''),
+            'team_b_logo': match.get('team_b_logo', ''),  # 新增
             'stage': match.get('stage_name', ''),
-            'location': match.get('location_name', '')
+            'location': match.get('location_name', ''),
+            'score_a': score_a if is_finished else None,  # 新增
+            'score_b': score_b if is_finished else None,  # 新增
+            'is_finished': is_finished  # 新增
         })
     
     # 在JSON中也保存标题信息，供前端使用

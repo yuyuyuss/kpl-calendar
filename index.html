@@ -189,6 +189,204 @@
                 text-align: center;
             }
         }
+
+        /* 战队信息行 */
+        .team-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .team-logo {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: #f0f0f0;
+            flex-shrink: 0;
+        }
+
+        .score {
+            font-weight: 700;
+            color: #e74c3c;
+            margin: 0 4px;
+        }
+
+        .score.finished {
+            color: #2d3436;
+        }
+
+        .match-status {
+            font-size: 12px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .status-live {
+            background: #e74c3c;
+            color: white;
+            animation: blink 1s infinite;
+        }
+
+        .status-finished {
+            background: #dfe6e9;
+            color: #2d3436;
+        }
+
+        .status-upcoming {
+            background: #0984e3;
+            color: white;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        /* 比赛卡片布局优化 */
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .schedule-item:hover {
+            background: #f8f9fa;
+        }
+
+        .schedule-item .match-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 2;
+            min-width: 180px;
+        }
+
+        .schedule-item .match-teams {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .schedule-item .match-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* 战队信息行 */
+        .team-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .team-logo {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: #f0f0f0;
+            flex-shrink: 0;
+        }
+
+        .score {
+            font-weight: 700;
+            color: #e74c3c;
+            margin: 0 4px;
+        }
+
+        .score.finished {
+            color: #2d3436;
+        }
+
+        .match-status {
+            font-size: 12px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .status-live {
+            background: #e74c3c;
+            color: white;
+            animation: blink 1s infinite;
+        }
+
+        .status-finished {
+            background: #dfe6e9;
+            color: #2d3436;
+        }
+
+        .status-upcoming {
+            background: #0984e3;
+            color: white;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        /* 比赛卡片布局优化 */
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .schedule-item:hover {
+            background: #f8f9fa;
+        }
+
+        .schedule-item .match-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 2;
+            min-width: 180px;
+        }
+
+        .schedule-item .match-teams {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .schedule-item .match-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
     </style>
 </head>
 
@@ -199,11 +397,9 @@
     <!-- 控制区 -->
     <div class="card">
         <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-            <a href="https://github.com/yuyuyuss/kpl-calendar/actions/workflows/update-calendar.yml" 
-               target="_blank" 
-               class="btn btn-success" 
-               style="display:inline-block; text-decoration:none; text-align:center;">
-               ⚡ 前往 GitHub 更新赛程
+            <a href="https://github.com/yuyuyuss/kpl-calendar/actions/workflows/update-calendar.yml" target="_blank"
+                class="btn btn-success" style="display:inline-block; text-decoration:none; text-align:center;">
+                ⚡ 前往 GitHub 更新赛程
             </a>
             <span style="color: #888; font-size: 14px;" id="lastUpdateText">上次更新：加载中...</span>
         </div>
@@ -242,11 +438,10 @@
             try {
                 const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/main/schedule.json?t=${Date.now()}`;
                 const response = await fetch(url, { cache: 'no-store' });
-                if (!response.ok) throw new Error('数据不存在，请先运行脚本生成赛程');
+                if (!response.ok) throw new Error('数据不存在');
 
                 const data = await response.json();
 
-                // 更新页面标题
                 if (data.title) {
                     document.querySelector('h1').textContent = `📅 ${data.title}`;
                 }
@@ -257,25 +452,54 @@
                     return;
                 }
 
-                // 按时间排序
                 matches.sort((a, b) => a.time.localeCompare(b.time));
 
                 let html = '<div class="schedule-list">';
                 matches.forEach(item => {
+                    // 判断状态（这里简化处理，实际可根据时间+比分判断）
+                    let statusHtml = '';
+                    if (item.is_finished) {
+                        statusHtml = `<span class="match-status status-finished">✓ 已结束</span>`;
+                    } else {
+                        statusHtml = `<span class="match-status status-upcoming">● 未开始</span>`;
+                    }
+
+                    let scoreHtml = '';
+                    if (item.is_finished && item.score_a !== null && item.score_b !== null) {
+                        scoreHtml = `<span class="score finished">${item.score_a} : ${item.score_b}</span>`;
+                    } else {
+                        scoreHtml = `<span class="score" style="color:#b2bec3;">vs</span>`;
+                    }
+
                     html += `
-                        <div class="schedule-item">
-                            <span class="schedule-time">${item.time} ${item.weekday || ''}</span>
-                            <span class="schedule-teams">
-                                ${item.team_a} <span class="vs">vs</span> ${item.team_b}
-                            </span>
-                            <span class="schedule-meta">${item.stage || ''} ${item.location ? '· ' + item.location : ''}</span>
+                <div class="schedule-item">
+                    <div class="match-info">
+                        <div class="match-teams">
+                            <span class="schedule-time">${item.time}</span>
+                            <img src="${item.team_a_logo || ''}" 
+                                 class="team-logo" 
+                                 onerror="this.style.display='none'"
+                                 alt="${item.team_a}">
+                            <span>${item.team_a}</span>
+                            ${scoreHtml}
+                            <img src="${item.team_b_logo || ''}" 
+                                 class="team-logo" 
+                                 onerror="this.style.display='none'"
+                                 alt="${item.team_b}">
+                            <span>${item.team_b}</span>
+                            ${statusHtml}
                         </div>
-                    `;
+                        <div class="match-meta">
+                            <span>${item.stage || ''}</span>
+                            <span>${item.location ? '📍 ' + item.location : ''}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
                 });
                 html += '</div>';
                 container.innerHTML = html;
 
-                // 更新最后更新时间
                 const lastModified = response.headers.get('last-modified');
                 if (lastModified) {
                     const date = new Date(lastModified);
@@ -303,7 +527,7 @@
         }
 
         // ===== 页面初始化 =====
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('subscribeUrl').textContent =
                 `webcal://${GITHUB_USERNAME}.github.io/${GITHUB_REPO}/kpl.ics`;
             loadSchedule();

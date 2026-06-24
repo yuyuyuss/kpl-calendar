@@ -171,28 +171,40 @@ def main():
             continue
         start_time = datetime.fromtimestamp(start_ts, tz=CHINA_TZ)
         
-        # 获取比分
-        score_a = match.get('team_a_score')
-        score_b = match.get('team_b_score')
+        # ✅ 修复：正确判断比赛是否已结束
+        # 从接口获取的比分，如果比赛未开始，可能不存在、为 None 或为空字符串
+        score_a_raw = match.get('team_a_score')
+        score_b_raw = match.get('team_b_score')
         
-        # ✅ 修复：判断比赛是否已结束
-        # 如果比分字段存在且不为空字符串，且不为 None，则认为已结束
-        is_finished = (
-            score_a is not None and score_a != '' and 
-            score_b is not None and score_b != ''
+        # 判断是否已结束：比分必须存在且不为空字符串，且不能是 None
+        # 注意：比分 "0" 是有效值，表示 0 分，所以不能把它当作"没有比分"
+        has_score = (
+            score_a_raw is not None and score_a_raw != '' and
+            score_b_raw is not None and score_b_raw != ''
         )
+        
+        # 只有当比分存在时，才认为比赛已结束
+        is_finished = has_score
+        
+        # 比分值
+        if is_finished:
+            score_a = str(score_a_raw)
+            score_b = str(score_b_raw)
+        else:
+            score_a = None
+            score_b = None
         
         matches_data.append({
             'time': start_time.strftime('%m-%d %H:%M'),
             'weekday': ['周一','周二','周三','周四','周五','周六','周日'][start_time.weekday()],
             'team_a': match.get('team_a_name', ''),
-            'team_a_logo': match.get('team_a_logo', ''),  # ✅ 确保传入了队标
+            'team_a_logo': match.get('team_a_logo', ''),
             'team_b': match.get('team_b_name', ''),
-            'team_b_logo': match.get('team_b_logo', ''),  # ✅ 确保传入了队标
+            'team_b_logo': match.get('team_b_logo', ''),
             'stage': match.get('stage_name', ''),
             'location': match.get('location_name', ''),
-            'score_a': str(score_a) if is_finished else None,  # 转为字符串
-            'score_b': str(score_b) if is_finished else None,
+            'score_a': score_a,
+            'score_b': score_b,
             'is_finished': is_finished
         })
     

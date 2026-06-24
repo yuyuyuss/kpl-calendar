@@ -185,7 +185,7 @@
 
 <body>
 
-    <h1>📅 KPL 2026 夏季赛</h1>
+    <h1>📅 KPL 赛程</h1>
 
     <!-- 控制区 -->
     <div class="card">
@@ -296,17 +296,25 @@
         }
 
         // 加载并显示赛程
-        async function loadSchedule() {
+        async function loadSchedule(force = false) {
             const container = document.getElementById('scheduleContainer');
+            const status = document.getElementById('status');
 
             try {
                 const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/main/schedule.json?t=${Date.now()}`;
-                const response = await fetch(url);
+                const response = await fetch(url, { cache: 'no-store' });
                 if (!response.ok) throw new Error('数据不存在');
 
                 const data = await response.json();
-                if (!data || data.length === 0) {
-                    container.innerHTML = '<div class="empty-state">📭 暂无赛程数据，点击上方"更新赛程"按钮获取</div>';
+
+                // 更新页面标题
+                if (data.title) {
+                    document.querySelector('h1').textContent = `📅 ${data.title}`;
+                }
+
+                const matches = data.matches || data; // 兼容旧格式
+                if (!matches || matches.length === 0) {
+                    container.innerHTML = '<div class="empty-state">📭 暂无赛程数据</div>';
                     return;
                 }
 

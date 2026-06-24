@@ -21,6 +21,38 @@ PAYLOAD = {"stageid": "cgs1"}
 # 中国时区 (UTC+8)
 CHINA_TZ = timezone(timedelta(hours=8))
 
+def fetch_season_info():
+    """获取当前赛季名称"""
+    try:
+        # 使用你抓包到的接口
+        season_api = "https://kplshop-op.timi-esports.qq.com/kplow/getSeasonAndStageAndTeamList"
+        headers = {
+            "Content-Type": "application/json",
+            "Referer": "http://kpl.qq.com/",
+            "Origin": "http://kpl.qq.com",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Accept": "application/json, text/plain, */*",
+        }
+        payload = {}  # 根据你的抓包，这个接口的请求体可能是空的或只有空对象
+        
+        response = requests.post(season_api, headers=headers, json=payload, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        
+        if data.get('result') == 0:
+            seasons = data.get('data', {}).get('seasons', [])
+            # 找到当前赛季（is_cur_season == 1）
+            for season in seasons:
+                if season.get('is_cur_season') == 1:
+                    return season.get('season_name', 'KPL')
+            # 如果没找到当前赛季，返回第一个
+            if seasons:
+                return seasons[0].get('season_name', 'KPL')
+        return 'KPL'
+    except Exception as e:
+        print(f"⚠️ 获取赛季信息失败: {e}")
+        return 'KPL'
+    
 def fetch_schedule():
     """从API获取赛程数据"""
     try:
@@ -36,15 +68,19 @@ def fetch_schedule():
         print(f"请求API失败: {e}")
         return []
 
-def create_calendar(matches):
+def create_calendar(matches, calendar_title=None):
     """创建并返回一个ics日历对象"""
     cal = Calendar()
     cal.add('prodid', '-//KPL Schedule//kpl.qq.com//')
     cal.add('version', '2.0')
     cal.add('calscale', 'GREGORIAN')
-    # 日历标题
-    cal.add('x-wr-calname', 'KPL王者荣耀职业联赛赛程')
-    # 让日历默认显示为亚洲/上海时区
+    
+    # 使用动态标题
+    if calendar_title:
+        cal.add('x-wr-calname', calendar_title)
+    else:
+        cal.add('x-wr-calname', 'KPL王者荣耀职业联赛赛程')
+    
     cal.add('x-wr-timezone', 'Asia/Shanghai')
 
     for match in matches:
@@ -72,7 +108,7 @@ def create_calendar(matches):
         # 注意：start_timestamp 是字符串，需要先转为int
         start_time = datetime.fromtimestamp(start_ts, tz=CHINA_TZ)
         # 简单估算结束时间：BO5大约3小时，可以根据需要调整
-        end_time = start_time + timedelta(hours=3)
+        end_time = start_time + timedelta(hours=2)
 
         event.add('summary', summary)
         event.add('dtstart', start_time)
@@ -100,6 +136,12 @@ def save_calendar(cal, filename="kpl.ics"):
 
 def main():
     print("🚀 开始获取KPL赛程...")
+    
+    # 先获取赛季名称
+    season_name = fetch_season_info()
+    print(f"📌 当前赛季: {season_name}")
+    
+    # 获取赛程数据
     matches = fetch_schedule()
     if not matches:
         print("⚠️ 未能获取到任何赛程数据，请检查网络或接口状态。")
@@ -107,12 +149,19 @@ def main():
 
     print(f"✅ 成功获取 {len(matches)} 场比赛。")
     
-    # 生成 ics 日历
+    # 获取阶段名称（从第一场比赛里取）
+    stage_name = matches[0].get('stage_name', 'KPL') if matches else 'KPL'
+    
+    # 生成动态标题
+    full_title = f"{season_name} {stage_name}"
+    print(f"📅 日历标题: {full_title}")
+    
+    # 生成 ics 日历（传入标题）
     print("📅 正在生成日历文件...")
-    cal = create_calendar(matches)
+    cal = create_calendar(matches, full_title)
     save_calendar(cal)
     
-    # 🆕 生成 JSON 数据供前端展示
+    # 生成 JSON 数据供前端展示（也包含标题信息）
     print("📊 正在生成赛程数据...")
     matches_data = []
     for match in matches:
@@ -129,11 +178,19 @@ def main():
             'location': match.get('location_name', '')
         })
     
+    # 在JSON中也保存标题信息，供前端使用
+    output_data = {
+        'title': full_title,
+        'season': season_name,
+        'stage': stage_name,
+        'matches': matches_data
+    }
+    
     with open('schedule.json', 'w', encoding='utf-8') as f:
-        json.dump(matches_data, f, ensure_ascii=False, indent=2)
+        json.dump(output_data, f, ensure_ascii=False, indent=2)
     print("✅ 赛程数据已保存: schedule.json")
     
     print("🎉 任务完成！")
-
+    
 if __name__ == "__main__":
     main()

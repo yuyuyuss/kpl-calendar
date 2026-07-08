@@ -6,9 +6,7 @@ from datetime import datetime, timezone, timedelta
 import os
 
 # --- 配置信息 ---
-# 从你抓包中获取的接口URL
 API_URL = "https://kplshop-op.timi-esports.qq.com/kplow/getScheduleList"
-# 请求头，模拟浏览器行为，关键是要带上 referer 和 origin
 HEADERS = {
     "Content-Type": "application/json",
     "Referer": "http://kpl.qq.com/",
@@ -16,8 +14,7 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0",
     "Accept": "application/json, text/plain, */*",
 }
-# 请求体，根据你抓包的数据，这里是获取常规赛第一轮
-PAYLOAD = {"stageid": "cgs1"}
+CANDIDATE_STAGE_IDS = ["cgs1", "cgs2", "cgs3"]
 
 # 中国时区 (UTC+8)
 CHINA_TZ = timezone(timedelta(hours=8))
@@ -55,18 +52,42 @@ def fetch_season_info():
         return 'KPL'
     
 def fetch_schedule():
-    """从API获取赛程数据"""
-    try:
-        response = requests.post(API_URL, headers=HEADERS, json=PAYLOAD, timeout=10)
-        response.raise_for_status()  # 如果状态码不是200，抛出异常
-        data = response.json()
-        if data.get('result') == 0:
-            return data.get('data', {}).get('list', [])
-        else:
-            print(f"API返回错误: {data.get('msg')}")
-            return []
-    except requests.exceptions.RequestException as e:
-        print(f"请求API失败: {e}")
+    """从API获取赛程数据，自动探测当前阶段"""
+    current_ts = int(time.time())
+    best_matches = []
+    best_stage_name = ""
+    best_stage_id = ""
+    best_future_count = 0
+    
+    for stageid in CANDIDATE_STAGE_IDS:
+        try:
+            response = requests.post(API_URL, headers=HEADERS, json={"stageid": stageid}, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            if data.get("result") == 0:
+                matches = data.get("data", {}).get("list", [])
+                if matches:
+                    stage_name = matches[0].get("stage_name", "未知阶段")
+                    future_matches = sum(1 for m in matches if int(m.get("start_timestamp", 0)) > current_ts)
+                    print(f"  stageid={stageid}: {len(matches)}场比赛, {future_matches}场未开始, 阶段: {stage_name}")
+                    
+                    if future_matches > best_future_count:
+                        best_matches = matches
+                        best_stage_name = stage_name
+                        best_stage_id = stageid
+                        best_future_count = future_matches
+                else:
+                    print(f"  stageid={stageid}: 返回成功但无数据")
+            else:
+                print(f"  stageid={stageid}: 返回错误: {data.get('msg', '未知错误')}")
+        except requests.exceptions.RequestException as e:
+            print(f"  stageid={stageid}: 请求失败: {e}")
+    
+    if best_matches:
+        print(f"\n✅ 选择阶段: {best_stage_name} (stageid={best_stage_id}), 共 {len(best_matches)} 场比赛")
+        return best_matches
+    else:
+        print("⚠️ 未能获取到任何赛程数据")
         return []
 
 def create_calendar(matches, calendar_title=None):

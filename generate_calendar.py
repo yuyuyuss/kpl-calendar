@@ -3,10 +3,10 @@ import json
 import time
 from icalendar import Calendar, Event
 from datetime import datetime, timezone, timedelta
-import os
 
-# --- 配置信息 ---
-API_URL = "https://kplshop-op.timi-esports.qq.com/kplow/getScheduleList"
+# --- 接口配置 ---
+API_SCHEDULE = "https://kplshop-op.timi-esports.qq.com/kplow/getScheduleList"
+
 HEADERS = {
     "Content-Type": "application/json",
     "Referer": "http://kpl.qq.com/",
@@ -14,281 +14,189 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0",
     "Accept": "application/json, text/plain, */*",
 }
-CANDIDATE_STAGE_IDS = ["cgs1", "cgs2", "cgs3"]
-
-# 中国时区 (UTC+8)
 CHINA_TZ = timezone(timedelta(hours=8))
 
-def fetch_season_info():
-    """获取当前赛季名称"""
-    try:
-        # 使用你抓包到的接口
-        season_api = "https://kplshop-op.timi-esports.qq.com/kplow/getSeasonAndStageAndTeamList"
-        headers = {
-            "Content-Type": "application/json",
-            "Referer": "http://kpl.qq.com/",
-            "Origin": "http://kpl.qq.com",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            "Accept": "application/json, text/plain, */*",
-        }
-        payload = {}  # 根据你的抓包，这个接口的请求体可能是空的或只有空对象
-        
-        response = requests.post(season_api, headers=headers, json=payload, timeout=10)
-        response.raise_for_status()
-        data = response.json()
-        
-        if data.get('result') == 0:
-            seasons = data.get('data', {}).get('seasons', [])
-            # 找到当前赛季（is_cur_season == 1）
-            for season in seasons:
-                if season.get('is_cur_season') == 1:
-                    return season.get('season_name', 'KPL')
-            # 如果没找到当前赛季，返回第一个
-            if seasons:
-                return seasons[0].get('season_name', 'KPL')
-        return 'KPL'
-    except Exception as e:
-        print(f"⚠️ 获取赛季信息失败: {e}")
-        return 'KPL'
-    
-def fetch_schedule():
-    """从API获取赛程数据，自动探测当前阶段"""
-    current_ts = int(time.time())
-    best_matches = []
-    best_stage_name = ""
-    best_stage_id = ""
-    best_future_count = 0
-    
-    for stageid in CANDIDATE_STAGE_IDS:
-        try:
-            response = requests.post(API_URL, headers=HEADERS, json={"stageid": stageid}, timeout=10)
-            response.raise_for_status()
-            data = response.json()
-            if data.get("result") == 0:
-                matches = data.get("data", {}).get("list", [])
-                if matches:
-                    stage_name = matches[0].get("stage_name", "未知阶段")
-                    future_matches = sum(1 for m in matches if int(m.get("start_timestamp", 0)) > current_ts)
-                    print(f"  stageid={stageid}: {len(matches)}场比赛, {future_matches}场未开始, 阶段: {stage_name}")
-                    
-                    if future_matches > best_future_count:
-                        best_matches = matches
-                        best_stage_name = stage_name
-                        best_stage_id = stageid
-                        best_future_count = future_matches
-                else:
-                    print(f"  stageid={stageid}: 返回成功但无数据")
-            else:
-                print(f"  stageid={stageid}: 返回错误: {data.get('msg', '未知错误')}")
-        except requests.exceptions.RequestException as e:
-            print(f"  stageid={stageid}: 请求失败: {e}")
-    
-    if best_matches:
-        print(f"\n✅ 选择阶段: {best_stage_name} (stageid={best_stage_id}), 共 {len(best_matches)} 场比赛")
-        return best_matches
-    else:
-        print("⚠️ 未能获取到任何赛程数据")
-        return []
+# 详情接口已经404，直接关闭
+FETCH_DETAIL = False
 
-def create_calendar(matches, calendar_title=None):
-    """创建并返回一个ics日历对象"""
+
+def get_current_season():
+    """拿到当前赛季名称 + seasonid"""
+    url = "https://kplshop-op.timi-esports.qq.com/kplow/getSeasonAndStageAndTeamList"
+    resp = requests.post(url, headers=HEADERS, json={}, timeout=10)
+    resp.raise_for_status()
+    data = resp.json()
+    if data["result"] != 0:
+        raise Exception("获取赛季失败")
+    for s in data["data"]["seasons"]:
+        if s["is_cur_season"] == 1:
+            return s["season_name"], s["seasonid"]
+    raise Exception("未找到当前赛季")
+
+
+def discover_all_stages(seed_stage_ids):
+    """
+    多种子stage拉取，合并赛程后自动提取全部stage
+    支持后续突围赛、淘汰赛上新自动识别
+    """
+    all_raw_matches = []
+    for seed in seed_stage_ids:
+        print(f"\n🔍 种子stage[{seed}]拉取赛程，用于自动发现阶段...")
+        resp = requests.post(API_SCHEDULE, headers=HEADERS, json={"stageid": seed}, timeout=10)
+        resp.raise_for_status()
+        j = resp.json()
+        if j["result"] != 0:
+            print(f"⚠️ 种子 {seed} 请求失败，跳过")
+            continue
+        match_list = j["data"]["list"]
+        all_raw_matches.extend(match_list)
+
+    stage_map = {}
+    for m in all_raw_matches:
+        sid = m["stageid"]
+        sname = m["stage_name"]
+        stage_map[sid] = sname
+
+    stage_list = [{"stageid": k, "stage_name": v} for k, v in stage_map.items()]
+    print(f"✅ 自动识别到本赛季阶段列表：{stage_list}")
+    return stage_list
+
+
+def fetch_one_stage(stage):
+    sid = stage["stageid"]
+    sname = stage["stage_name"]
+    print(f"\n📥 抓取【{sname}】stageid={sid}")
+    resp = requests.post(API_SCHEDULE, headers=HEADERS, json={"stageid": sid}, timeout=10)
+    resp.raise_for_status()
+    j = resp.json()
+    if j["result"] != 0:
+        print(f"⚠️ 【{sname}】返回错误：{j.get('msg')}")
+        return []
+    matches = j["data"]["list"]
+    print(f"✅ 【{sname}】拿到 {len(matches)} 场比赛")
+    return matches
+
+
+def build_ical(all_matches, title):
     cal = Calendar()
-    cal.add('prodid', '-//KPL Schedule//kpl.qq.com//')
+    cal.add('prodid', '-//KPL Auto Schedule Crawler//kpl.qq.com//')
     cal.add('version', '2.0')
     cal.add('calscale', 'GREGORIAN')
-    
-    # 使用动态标题
-    if calendar_title:
-        cal.add('x-wr-calname', calendar_title)
-    else:
-        cal.add('x-wr-calname', 'KPL王者荣耀职业联赛赛程')
-    
+    cal.add('x-wr-calname', title)
     cal.add('x-wr-timezone', 'Asia/Shanghai')
 
-    for match in matches:
-        # 提取数据
-        start_ts = int(match.get('start_timestamp', 0))
-        if start_ts == 0:
-            continue  # 没有时间则跳过
+    for m in all_matches:
+        ts = int(m["start_timestamp"])
+        if ts <= 0:
+            continue
+        ta = m["team_a_name"]
+        tb = m["team_b_name"]
+        summary = f"{ta} vs {tb}"
+        loc = m.get("location_name", "")
+        sa = m.get("team_a_score", "")
+        sb = m.get("team_b_score", "")
+        bo = m["bo_total"]
+        stg = m["stage_name"]
+        desc = f"【{stg}】BO{bo}"
+        if sa != "" and sb != "":
+            desc += f" | 比分 {ta} {sa}-{sb} {tb}"
 
-        team_a = match.get('team_a_name', '队伍A')
-        team_b = match.get('team_b_name', '队伍B')
-        stage = match.get('stage_name', 'KPL')
-        # 构建事件标题，例如: "KPL 常规赛第一轮: 佛山DRG vs 广州TTG"
-        summary = f"{team_a} vs {team_b}"
-        location = match.get('location_name', '')
-        # 比分信息可以作为描述添加
-        score_a = match.get('team_a_score', '')
-        score_b = match.get('team_b_score', '')
-        description = f"BO{match.get('bo_total', 5)}"
-        if score_a != '' and score_b != '':
-            description += f" | 比分: {team_a} {score_a} - {score_b} {team_b}"
-
-        # 创建事件
-        event = Event()
-        # 将Unix时间戳转换为datetime对象，并设置为中国时区
-        # 注意：start_timestamp 是字符串，需要先转为int
-        start_time = datetime.fromtimestamp(start_ts, tz=CHINA_TZ)
-        # 简单估算结束时间：BO5大约3小时，可以根据需要调整
-        end_time = start_time + timedelta(hours=2)
-
-        event.add('summary', summary)
-        event.add('dtstart', start_time)
-        event.add('dtend', end_time)
-        event.add('dtstamp', datetime.now(timezone.utc))
-        if location:
-            event.add('location', location)
-        if description:
-            event.add('description', description)
-        # 添加一个唯一的UID，用于日历去重
-        uid = match.get('scheduleid', f"{start_ts}_{team_a}_{team_b}")
-        event.add('uid', uid)
-        # 设置事件的时区为透明，以便在不同时区显示正确时间
-        event.add('transp', 'OPAQUE')
-
-        cal.add_component(event)
-
+        evt = Event()
+        st = datetime.fromtimestamp(ts, tz=CHINA_TZ)
+        et = st + timedelta(hours=2)
+        evt.add("summary", summary)
+        evt.add("dtstart", st)
+        evt.add("dtend", et)
+        evt.add("dtstamp", datetime.now(timezone.utc))
+        if loc:
+            evt.add("location", loc)
+        evt.add("description", desc)
+        evt.add("uid", m["scheduleid"])
+        cal.add_component(evt)
     return cal
 
-def save_calendar(cal, filename="kpl.ics"):
-    """将日历对象保存为文件"""
-    with open(filename, 'wb') as f:
-        f.write(cal.to_ical())
-    print(f"✅ 日历文件已生成: {filename}")
 
 def main():
-    print("🚀 开始获取KPL赛程...")
-    
-    # 先获取赛季名称
-    season_name = fetch_season_info()
-    print(f"📌 当前赛季: {season_name}")
-    
-    # 获取赛程数据
-    matches = fetch_schedule()
-    if not matches:
-        print("⚠️ 未能获取到任何赛程数据，请检查网络或接口状态。")
+    print("🚀 KPL自动抓取脚本（自动发现全部stage，无需硬编码新增）")
+    season_name, seasonid = get_current_season()
+    print(f"📌 当前赛季：{season_name} | seasonid={seasonid}")
+
+    # 多种子，同时扫描擂台赛、总决赛，后续上新阶段会自动识别
+    seed_list = ["lts", "zjs"]
+    all_stages = discover_all_stages(seed_list)
+
+    all_matches = []
+    seen_sid = set()
+    for stg in all_stages:
+        ms = fetch_one_stage(stg)
+        for m in ms:
+            if m["scheduleid"] not in seen_sid:
+                seen_sid.add(m["scheduleid"])
+                all_matches.append(m)
+
+    if not all_matches:
+        print("❌ 没有抓到任何赛程")
         return
 
-    print(f"✅ 成功获取 {len(matches)} 场比赛。")
-    
-    # 获取阶段名称
-    stage_name = matches[0].get('stage_name', 'KPL') if matches else 'KPL'
-    full_title = f"{season_name} {stage_name}"
-    print(f"📅 日历标题: {full_title}")
-    
-    # 生成 ics 日历
-    print("📅 正在生成日历文件...")
-    cal = create_calendar(matches, full_title)
-    save_calendar(cal)
-    
-    # 生成 JSON 数据供前端展示
-    print("📊 正在生成赛程数据...")
-    matches_data = []
-    current_ts = int(time.time())
-    
-    for match in matches:
-        start_ts = int(match.get('start_timestamp', 0))
-        if start_ts == 0:
-            continue
-        start_time = datetime.fromtimestamp(start_ts, tz=CHINA_TZ)
-        
-        # 获取比分原始值
-        score_a_raw = match.get('team_a_score')
-        score_b_raw = match.get('team_b_score')
-        bo_total = match.get('bo_total', 5)  # 默认 BO5
-        
-        # 判断是否有比分数据（不为 None 且不为空字符串）
-        has_score = (
-            score_a_raw is not None and score_a_raw != '' and
-            score_b_raw is not None and score_b_raw != ''
-        )
-        
-        # --- 核心状态判断 ---
+    # 生成ics日历文件
+    cal = build_ical(all_matches, season_name)
+    with open("kpl.ics", "wb") as f:
+        f.write(cal.to_ical())
+    print("\n✅ kpl.ics 已生成")
+
+    # 组装json
+    out_items = []
+    for m in all_matches:
+        ts = int(m["start_timestamp"])
+        dt = datetime.fromtimestamp(ts, tz=CHINA_TZ)
+        sid = m["scheduleid"]
+        sa_raw = m.get("team_a_score")
+        sb_raw = m.get("team_b_score")
+        bo = m["bo_total"]
+        stg_name = m["stage_name"]
+
         is_finished = False
-        is_live = False
-        score_a_display = None
-        score_b_display = None
-        
-        if has_score:
-            # 尝试将比分转为整数
+        score_a = None
+        score_b = None
+        if sa_raw not in (None, "") and sb_raw not in (None, ""):
             try:
-                score_a = int(score_a_raw)
-                score_b = int(score_b_raw)
-            except ValueError:
-                # 如果转换失败，视为无效比分
-                score_a = -1
-                score_b = -1
-            
-            # 如果比分有效（非负数）
-            if score_a >= 0 and score_b >= 0:
-                # 1. 判断是否已结束：一方达到胜利分数
-                win_score = (bo_total // 2) + 1  # BO5->3, BO7->4, BO9->5
-                if score_a >= win_score or score_b >= win_score:
+                sa = int(sa_raw)
+                sb = int(sb_raw)
+                win_line = (bo // 2) + 1
+                if sa >= win_line or sb >= win_line:
                     is_finished = True
-                    score_a_display = str(score_a)
-                    score_b_display = str(score_b)
-                # 2. 判断是否正在进行：有比分但未结束，且比赛开始时间已过
-                elif current_ts > start_ts:
-                    is_live = True
-                    score_a_display = str(score_a)
-                    score_b_display = str(score_b)
-                # 3. 两边都是0，且比赛还没开始 → 未开始
-                elif score_a == 0 and score_b == 0 and current_ts < start_ts:
-                    is_finished = False
-                    is_live = False
-                    score_a_display = None
-                    score_b_display = None
-                # 4. 其他情况（比如比分 0:0 但比赛已开始，但未结束）→ 视为进行中
-                else:
-                    is_live = True
-                    score_a_display = str(score_a)
-                    score_b_display = str(score_b)
-            else:
-                # 比分无效，视为未开始
-                is_finished = False
-                is_live = False
-        else:
-            # 没有比分数据，视为未开始
-            is_finished = False
-            is_live = False
-        
-        # 状态文本
-        if is_finished:
-            status = 'finished'
-        elif is_live:
-            status = 'live'
-        else:
-            status = 'upcoming'
-        
-        matches_data.append({
-            'time': start_time.strftime('%m-%d %H:%M'),
-            'weekday': ['周一','周二','周三','周四','周五','周六','周日'][start_time.weekday()],
-            'team_a': match.get('team_a_name', ''),
-            'team_a_logo': match.get('team_a_logo', ''),
-            'team_b': match.get('team_b_name', ''),
-            'team_b_logo': match.get('team_b_logo', ''),
-            'stage': match.get('stage_name', ''),
-            'location': match.get('location_name', ''),
-            'score_a': score_a_display,
-            'score_b': score_b_display,
-            'is_finished': is_finished,
-            'is_live': is_live,
-            'status': status,
-            'bo_total': bo_total
-        })
-    
-    output_data = {
-        'title': full_title,
-        'season': season_name,
-        'stage': stage_name,
-        'matches': matches_data
+                    score_a = str(sa)
+                    score_b = str(sb)
+            except:
+                pass
+
+        item = {
+            "scheduleid": sid,
+            "time": dt.strftime("%m-%d %H:%M"),
+            "weekday": ["周一","周二","周三","周四","周五","周六","周日"][dt.weekday()],
+            "team_a": m["team_a_name"],
+            "team_a_logo": m.get("team_a_logo"),
+            "team_b": m["team_b_name"],
+            "team_b_logo": m.get("team_b_logo"),
+            "stage": stg_name,
+            "location": m.get("location_name"),
+            "score_a": score_a,
+            "score_b": score_b,
+            "is_finished": is_finished
+        }
+        out_items.append(item)
+
+    final_json = {
+        "title": season_name,
+        "seasonid": seasonid,
+        "stages": all_stages,
+        "matches": out_items
     }
-    
-    with open('schedule.json', 'w', encoding='utf-8') as f:
-        json.dump(output_data, f, ensure_ascii=False, indent=2)
-    print("✅ 赛程数据已保存: schedule.json")
-    
-    print("🎉 任务完成！")
-    
+    with open("schedule.json", "w", encoding="utf-8") as f:
+        json.dump(final_json, f, ensure_ascii=False, indent=2)
+    print("✅ schedule.json 已生成")
+    print("\n🎉 全部完成！突围赛/淘汰赛上线后，直接重新运行脚本自动抓取")
+
+
 if __name__ == "__main__":
     main()

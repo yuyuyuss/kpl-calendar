@@ -498,9 +498,9 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/7209fb2509e991052852dd872981c8f3.png",
       "stage": "擂台赛",
       "location": "广州",
-      "score_a": null,
-      "score_b": null,
-      "is_finished": false
+      "score_a": "1",
+      "score_b": "3",
+      "is_finished": true
     },
     {
       "scheduleid": "KPL2026S3M3W6D2",
@@ -512,9 +512,9 @@
       "team_b_logo": "https://smhtv-pic.tga.qq.com/48f18204fa257197ec49bb6345d14a33.png",
       "stage": "擂台赛",
       "location": "广州",
-      "score_a": null,
-      "score_b": null,
-      "is_finished": false
+      "score_a": "3",
+      "score_b": "1",
+      "is_finished": true
     },
     {
       "scheduleid": "KPL2026S3M7W1D1",
